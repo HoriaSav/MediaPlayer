@@ -1,9 +1,13 @@
 package com.ui.tools;
 
+import com.ui.controller.container.TrackUiContainer;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 import java.io.File;
 
@@ -42,9 +46,47 @@ public class TrackPlayerHelper {
         System.out.println("Media loaded and ready to play.");
     }
 
-    public void playTrack() {
+    public void playTrack(TrackUiContainer trackUiContainer) {
         if (mediaPlayer != null) {
+            setupProgressBinding(trackUiContainer.getSongSlider());
+            setUpDurationLabel(trackUiContainer.getSongDurationLabel());
             mediaPlayer.play();
         }
+    }
+
+    private void setUpDurationLabel(Label songDurationLabel) {
+        Duration time = mediaPlayer.getMedia().getDuration();
+        songDurationLabel.setText(time.toMinutes() + " ");
+    }
+
+    private void setupProgressBinding(Slider progressSlider) {
+        mediaPlayer.setOnReady(() -> {
+            Duration total = mediaPlayer.getMedia().getDuration();
+            progressSlider.setMax(total.toSeconds());
+        });
+
+        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+            if (!progressSlider.isValueChanging()) { // avoid conflict when user is dragging
+                progressSlider.setValue(newTime.toSeconds());
+            }
+        });
+
+        progressSlider.setOnMouseReleased(event -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
+            }
+        });
+
+        progressSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
+            if (!isChanging && mediaPlayer != null) {
+                mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
+            }
+        });
+
+        progressSlider.setOnMousePressed(event -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
+            }
+        });
     }
 }

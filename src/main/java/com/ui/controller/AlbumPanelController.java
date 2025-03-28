@@ -16,4 +16,5 @@ public class AlbumPanelController {
     public void setFileLocation() {
         AccesController.getTrackPlayerHelper().getTrack(getFileLocationButton);
     }
+
 }

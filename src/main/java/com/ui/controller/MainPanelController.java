@@ -1,5 +1,6 @@
 package com.ui.controller;
 
+import com.ui.controller.container.TrackUiContainer;
 import com.ui.tools.FxmlFileOpener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -20,9 +21,13 @@ public class MainPanelController {
     public Label trackName;
     @FXML
     public Label albumName;
+    @FXML
+    public Label songDuration;
 
     @FXML
     public Button playButton;
+
+    TrackUiContainer trackUiContainer;
 
     public void initialize() {
         AccesController.setTrackPlayerHelper();
@@ -37,7 +42,10 @@ public class MainPanelController {
 
     @FXML
     public void playTrack(){
-        AccesController.getTrackPlayerHelper().playTrack();
+        if(trackUiContainer==null){
+            trackUiContainer=new TrackUiContainer(songSlider, volumeSlider, songDuration);
+        }
+        AccesController.getTrackPlayerHelper().playTrack(trackUiContainer);
     }
 
     @FXML
@@ -57,4 +65,6 @@ public class MainPanelController {
 
     @FXML
     public void openPlaylistPanel(){}
+
+
 }

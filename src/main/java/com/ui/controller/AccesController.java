@@ -1,19 +1,11 @@
 package com.ui.controller;
 
 import com.ui.tools.TrackPlayerHelper;
-import javafx.scene.control.Button;
+import javafx.scene.control.Slider;
 
 public class AccesController {
-    private static String fileLocation;
     private static TrackPlayerHelper trackPlayerHelper;
-
-    public static String getFileLocation() {
-        return fileLocation;
-    }
-
-    public static void setFileLocation(String fileLocation) {
-        AccesController.fileLocation = fileLocation;
-    }
+    private static Slider progressSlider;
 
     public static TrackPlayerHelper getTrackPlayerHelper() {
         return trackPlayerHelper;
@@ -21,5 +13,13 @@ public class AccesController {
 
     public static void setTrackPlayerHelper() {
         AccesController.trackPlayerHelper = new TrackPlayerHelper();
+    }
+
+    public static Slider getProgressSlider() {
+        return progressSlider;
+    }
+
+    public static void setProgressSlider() {
+        AccesController.progressSlider = new Slider();
     }
 }
