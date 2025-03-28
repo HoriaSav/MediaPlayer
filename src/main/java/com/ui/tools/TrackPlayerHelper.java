@@ -5,7 +5,6 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
 
-import javax.swing.*;
 import java.io.File;
 
 public class TrackPlayerHelper {
