@@ -1,24 +1,31 @@
 package com.ui.controller.container;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 
 public class TrackUiContainer {
+
     private Slider songSlider;
     private Slider volumeSlider;
+
     private Label songDurationLabel;
     private Label trackNameLabel;
     private Label albumNameLabel;
     private Label artistLabel;
+    private Label volumeLabel;
+
+    private Button playPauseButton;
     private boolean isMuted = false;
 
-    public TrackUiContainer(Slider songSlider, Slider volumeSlider, Label songDurationLabel, Label trackNameLabel, Label albumNameLabel, Label artistLabel) {
+    public TrackUiContainer(Slider songSlider, Slider volumeSlider, Label volumeLabel, Label songDurationLabel, Label trackNameLabel, Label albumNameLabel, Label artistLabel) {
         this.songSlider = songSlider;
         this.volumeSlider = volumeSlider;
         this.songDurationLabel = songDurationLabel;
         this.trackNameLabel = trackNameLabel;
         this.albumNameLabel = albumNameLabel;
         this.artistLabel = artistLabel;
+        this.volumeLabel = volumeLabel;
     }
 
     public Slider getSongSlider() {
@@ -75,5 +82,21 @@ public class TrackUiContainer {
 
     public void setArtistLabel(Label artistLabel) {
         this.artistLabel = artistLabel;
+    }
+
+    public Label getVolumeLabel() {
+        return volumeLabel;
+    }
+
+    public void setVolumeLabel(Label volumeLabel) {
+        this.volumeLabel = volumeLabel;
+    }
+
+    public Button getPlayPauseButton() {
+        return playPauseButton;
+    }
+
+    public void setPlayPauseButton(Button playPauseButton) {
+        this.playPauseButton = playPauseButton;
     }
 }

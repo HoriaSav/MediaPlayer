@@ -1,0 +1,62 @@
+.button {
+    -fx-background-color: lightgrey;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+}
+#playButton{
+    -fx-background-color: transparent;
+}
+#skipButton{
+    -fx-background-color: transparent;
+}
+
+#goBackButton{
+    -fx-background-color: transparent;
+}
+
+#muteButton{
+    -fx-background-color: transparent;
+}
+
+.button:hover {
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.6), 10, 0.7, 0, 0);
+}
+
+.button:pressed {
+    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.8), 5, 0.8, 0, 0);
+}
+.slider {
+    -fx-padding: 4;
+}
+
+.slider .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 3;
+    -fx-pref-height: 6;
+}
+
+.slider .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-pref-width: 12;
+    -fx-pref-height: 12;
+    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 4, 0.4, 0, 0);
+}
+.progress-bar {
+    -fx-accent: #4fc3f7; /* progress color */
+    -fx-padding: 0 10 0 10;
+    -fx-background-color: #1e1e1e;
+    -fx-control-inner-background: rgba(255, 255, 255, 0.1); /* unfilled background */
+    -fx-background-radius: 50;
+}
+
+.progress-bar .track {
+    -fx-background-color: transparent; /* visible uncompleted part */
+    -fx-background-radius: 50;
+    -fx-pref-height: 6;
+}
+
+.progress-bar .bar {
+    -fx-background-color: #4fc3f7; /* filled part */
+    -fx-background-radius: 50;
+}

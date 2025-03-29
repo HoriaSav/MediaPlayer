@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="300.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
+<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
@@ -14,6 +14,7 @@
             <Label fx:id="fileLocationLabel" />
          </children>
       </HBox>
+      <VBox fx:id="trackListVBox" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

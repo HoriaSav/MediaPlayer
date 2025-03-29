@@ -4,6 +4,8 @@ import com.ui.controller.AccesController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.FileChooser;
@@ -35,13 +37,6 @@ public class TrackPlayerHelper {
             label.setText(mediaPath);
             setMediaPlayer(mediaPath);
         }
-
-        setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
-        mediaPlayer.setOnReady(() -> {
-            setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
-            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
-            setTrackInfo(AccesController.getTrackUiContainer().getTrackNameLabel(), AccesController.getTrackUiContainer().getAlbumNameLabel(), AccesController.getTrackUiContainer().getArtistLabel());
-        });
     }
 
     private void setMediaPlayer(String mediaPath) {
@@ -53,15 +48,31 @@ public class TrackPlayerHelper {
         }
         mediaPlayer = new MediaPlayer(media);
         System.out.println("Media loaded and ready to play.");
+
+        setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
+
+        mediaPlayer.setOnReady(() -> {
+            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
+            setTrackInfoInUi(AccesController.getTrackUiContainer().getTrackNameLabel(), AccesController.getTrackUiContainer().getAlbumNameLabel(), AccesController.getTrackUiContainer().getArtistLabel());
+        });
     }
 
     public void playPauseTrack() {
         if (mediaPlayer != null) {
-            if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                 mediaPlayer.pause();
-            }
-            else {
+                Image img = new Image(getClass().getResourceAsStream("/icons/play.png"));
+                ImageView view = new ImageView(img);
+                view.setFitWidth(20);  // optional: scale it
+                view.setFitHeight(20);
+                AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
+            } else {
                 mediaPlayer.play();
+                Image img = new Image(getClass().getResourceAsStream("/icons/pause.png"));
+                ImageView view = new ImageView(img);
+                view.setFitWidth(20);  // optional: scale it
+                view.setFitHeight(20);
+                AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
             }
         }
     }
@@ -73,7 +84,18 @@ public class TrackPlayerHelper {
         songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
-    private void setDurationSliderLength(){
+    private void setUpVolumeLabel(Label label) {
+        AccesController.getTrackUiContainer().getVolumeSlider().valueProperty().addListener((obs, oldVal, newVal) -> {
+            int percent = (int) (newVal.doubleValue() * 100);
+            label.setText(percent + "%");
+
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newVal.doubleValue());
+            }
+        });
+    }
+
+    private void setDurationSliderLength() {
         Duration total = mediaPlayer.getMedia().getDuration();
         AccesController.getTrackUiContainer().getSongSlider().setMax(total.toSeconds());
     }
@@ -127,11 +149,13 @@ public class TrackPlayerHelper {
                 mediaPlayer.setVolume(volumeSlider.getValue());
             }
         });
+        setUpVolumeLabel(AccesController.getTrackUiContainer().getVolumeLabel());
     }
 
-    private void setTrackInfo(Label trackNameLabel, Label albumNameLabel, Label artistNameLabel) {
+    private void setTrackInfoInUi(Label trackNameLabel, Label albumNameLabel, Label artistNameLabel) {
         trackNameLabel.setText(FileInfoExtractor.getTrackTitle(file));
         albumNameLabel.setText(FileInfoExtractor.getAlbumTitle(file));
         artistNameLabel.setText(FileInfoExtractor.getArtistTitle(file));
+        setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
     }
 }

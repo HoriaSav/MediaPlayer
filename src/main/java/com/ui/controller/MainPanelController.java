@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -27,6 +28,8 @@ public class MainPanelController {
     public Label trackNameLabel;
     @FXML
     public Label songDurationLabel;
+    @FXML
+    public Label volumeLabel;
 
     @FXML
     public Button playButton;
@@ -35,6 +38,10 @@ public class MainPanelController {
     public Button muteButton;
     @FXML
     public Label artistLabel;
+    @FXML
+    public ProgressBar songProgressProgressbar;
+    @FXML
+    public ProgressBar volumeProgressBar;
 
     private static TrackUiContainer trackUiContainer;
 
@@ -42,6 +49,16 @@ public class MainPanelController {
         AccesController.setTrackPlayerHelper();
         FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
         AccesController.setMainPanelController(this);
+        setProgressBarInSync();
+    }
+
+    private void setProgressBarInSync(){
+        songProgressProgressbar.progressProperty().bind(
+                songSlider.valueProperty().divide(songSlider.maxProperty())
+        );
+        volumeProgressBar.progressProperty().bind(
+                volumeSlider.valueProperty().divide(volumeSlider.maxProperty())
+        );
     }
 
     public TrackUiContainer getTrackUiContainer() {
@@ -52,7 +69,8 @@ public class MainPanelController {
     }
 
     private void setTrackUiContainer() {
-        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, songDurationLabel, trackNameLabel, albumNameLabel, artistLabel);
+        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, volumeLabel, songDurationLabel, trackNameLabel, albumNameLabel, artistLabel);
+        trackUiContainer.setPlayPauseButton(playButton);
     }
 
     @FXML
