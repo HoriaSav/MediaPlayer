@@ -1,6 +1,6 @@
 package com.ui.tools;
 
-import com.ui.controller.container.TrackUiContainer;
+import com.ui.controller.AccesController;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -47,10 +47,10 @@ public class TrackPlayerHelper {
         System.out.println("Media loaded and ready to play.");
     }
 
-    public void playTrack(TrackUiContainer trackUiContainer) {
+    public void playTrack() {
         if (mediaPlayer != null) {
-            setupProgressBinding(trackUiContainer.getSongSlider());
-            setUpDurationLabel(trackUiContainer.getSongDurationLabel());
+            setupProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
+            setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
             mediaPlayer.play();
         }
     }

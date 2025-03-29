@@ -26,16 +26,30 @@ public class MainPanelController {
     @FXML
     public Label albumName;
     @FXML
-    public Label songDuration;
+    public Label songDurationLabel;
 
     @FXML
     public Button playButton;
 
-    TrackUiContainer trackUiContainer;
+    @FXML Button muteButton;
+
+    private static TrackUiContainer trackUiContainer;
 
     public void initialize() {
         AccesController.setTrackPlayerHelper();
         FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
+        AccesController.setMainPanelController(this);
+    }
+
+    public TrackUiContainer getTrackUiContainer() {
+        if(trackUiContainer == null) {
+            setTrackUiContainer();
+        }
+        return trackUiContainer;
+    }
+
+    private void setTrackUiContainer() {
+        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, songDurationLabel);
     }
 
     @FXML
@@ -48,10 +62,7 @@ public class MainPanelController {
 
     @FXML
     public void playTrack() {
-        if (trackUiContainer == null) {
-            trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, songDuration);
-        }
-        AccesController.getTrackPlayerHelper().playTrack(trackUiContainer);
+        AccesController.getTrackPlayerHelper().playTrack();
     }
 
     @FXML

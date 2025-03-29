@@ -73,7 +73,7 @@
                                 </Button>
                             </HBox>
                             <HBox alignment="CENTER" spacing="5.0">
-                                <Button graphicTextGap="0.0" onAction="#muteUnmute">
+                                <Button fx:id="muteButton" graphicTextGap="0.0" onAction="#muteUnmute">
                                     <graphic>
                                         <ImageView fitHeight="20.0" fitWidth="20.0">
                                             <Image url="@../img/volume_max.png" />
@@ -83,7 +83,7 @@
                         <Label text="pp%" />
                         <VBox alignment="TOP_RIGHT">
                            <children>
-                              <Label fx:id="songDuration">
+                              <Label fx:id="songDurationLabel">
                                  <padding>
                                     <Insets right="5.0" />
                                  </padding>
