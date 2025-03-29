@@ -17,7 +17,7 @@ public class TrackPlayerHelper {
     public TrackPlayerHelper() {
     }
 
-    public void getTrack(Button button) {
+    public void getTrack(Button button, Label label) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Media File");
 
@@ -30,6 +30,7 @@ public class TrackPlayerHelper {
 
         if (file != null) {
             String mediaPath = file.toURI().toString();
+            label.setText(mediaPath);
             setMediaPlayer(mediaPath);
         }
 
@@ -56,7 +57,9 @@ public class TrackPlayerHelper {
 
     private void setUpDurationLabel(Label songDurationLabel) {
         Duration time = mediaPlayer.getMedia().getDuration();
-        songDurationLabel.setText(time.toMinutes() + " ");
+        long minutes = (long) time.toMinutes();
+        long seconds = (long) (time.toSeconds() % 60);
+        songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
     private void setupProgressBinding(Slider progressSlider) {

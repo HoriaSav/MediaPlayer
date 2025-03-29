@@ -14,7 +14,7 @@ public class AlbumPanelController {
 
     @FXML
     public void setFileLocation() {
-        AccesController.getTrackPlayerHelper().getTrack(getFileLocationButton);
+        AccesController.getTrackPlayerHelper().getTrack(getFileLocationButton, fileLocationLabel);
     }
 
 }

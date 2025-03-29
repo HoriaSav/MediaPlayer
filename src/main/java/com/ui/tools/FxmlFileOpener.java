@@ -21,7 +21,7 @@ public class FxmlFileOpener {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(filename));
             Stage stage = new Stage();
-            stage.initStyle(StageStyle.DECORATED);
+            stage.initStyle(StageStyle.UNDECORATED);
 
             Scene scene = new Scene(fxmlLoader.load(), 800, 600);
             stage.setScene(scene);
