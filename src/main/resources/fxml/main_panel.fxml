@@ -106,7 +106,7 @@
     </bottom>
     <left>
         <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
-            <VBox alignment="TOP_CENTER" fillWidth="false" spacing="30.0">
+            <VBox fillWidth="false" spacing="30.0">
                 <VBox fillWidth="false" spacing="10.0" VBox.vgrow="NEVER">
                     <Label text="Menu" />
                     <Button graphicTextGap="10.0" onAction="#openExplorePanel" text="Explore">

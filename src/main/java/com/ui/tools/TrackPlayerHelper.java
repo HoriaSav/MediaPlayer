@@ -61,13 +61,15 @@ public class TrackPlayerHelper {
         long minutes = (long) time.toMinutes();
         long seconds = (long) (time.toSeconds() % 60);
         songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
+        setDurationSliderLength();
+    }
+
+    private void setDurationSliderLength(){
+        Duration total = mediaPlayer.getMedia().getDuration();
+        AccesController.getTrackUiContainer().getSongSlider().setMax(total.toSeconds());
     }
 
     private void setupSongProgressBinding(Slider progressSlider) {
-        mediaPlayer.setOnReady(() -> {
-            Duration total = mediaPlayer.getMedia().getDuration();
-            progressSlider.setMax(total.toSeconds());
-        });
 
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!progressSlider.isValueChanging()) { // avoid conflict when user is dragging
