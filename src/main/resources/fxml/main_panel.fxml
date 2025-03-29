@@ -15,22 +15,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" stylesheets="@mediaPlayer_light.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MainPanelController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" styleClass="transparent-borderpane" stylesheets="@mediaPlayer_light.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MainPanelController">
     <bottom>
-        <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-            </padding>
-            <VBox HBox.hgrow="SOMETIMES">
-                <padding>
-                    <Insets left="10.0" right="10.0" />
-                </padding>
+        <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
+            <VBox spacing="5.0" styleClass="background-vbox" HBox.hgrow="SOMETIMES">
                 <StackPane VBox.vgrow="SOMETIMES">
-                    <ProgressBar fx:id="songProgressProgressbar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" style="-fx-accent: #4fc3f7; -fx-control-inner-background: transparent;" StackPane.alignment="CENTER" />
+                    <ProgressBar fx:id="songProgressProgressbar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" StackPane.alignment="CENTER" />
 
                     <Slider fx:id="songSlider" max="1" min="0" value="0" />
+               <VBox.margin>
+                  <Insets left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
                 </StackPane>
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="custom-hbox">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
@@ -45,40 +42,40 @@
                                 <Pane prefHeight="10.0" prefWidth="0.0" />
                                 <HBox alignment="CENTER" spacing="10.0">
                                     <children>
-                                        <Label fx:id="trackNameLabel" text="Song Name">
+                                        <Label fx:id="trackNameLabel" text="Song Name" textFill="WHITE">
                                             <font>
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="albumNameLabel" text="Album">
+                                        <Label fx:id="albumNameLabel" text="Album" textFill="WHITE">
                                             <font>
                                                 <Font size="10.0" />
                                             </font>
                                         </Label>
                                     </children>
                                 </HBox>
-                                <Label fx:id="artistLabel" text="Artist" />
+                                <Label fx:id="artistLabel" text="Artist" textFill="WHITE" />
                             </VBox>
                         </children>
                     </HBox>
                     <HBox alignment="CENTER" spacing="10.0" HBox.hgrow="SOMETIMES">
                         <Button fx:id="goBackButton" onAction="#goBackTrack">
                             <graphic>
-                                <ImageView fitHeight="15" fitWidth="15">
+                                <ImageView fitHeight="25.0" fitWidth="25.0">
                                     <Image url="@../icons/back.png" />
                                 </ImageView>
                             </graphic>
                         </Button>
                         <Button fx:id="playButton" onAction="#playPauseTrack">
                             <graphic>
-                                <ImageView fitHeight="15" fitWidth="15">
+                                <ImageView fitHeight="30.0" fitWidth="30.0">
                                     <Image url="@../icons/play.png" />
                                 </ImageView>
                             </graphic>
                         </Button>
                         <Button fx:id="skipButton" onAction="#skipTrack">
                             <graphic>
-                                <ImageView fitHeight="15" fitWidth="15">
+                                <ImageView fitHeight="25.0" fitWidth="25.0">
                                     <Image url="@../icons/next.png" />
                                 </ImageView>
                             </graphic>
@@ -86,13 +83,13 @@
                     </HBox>
                      <VBox alignment="TOP_RIGHT" spacing="5.0">
                          <children>
-                             <Label fx:id="songDurationLabel">
+                             <Label fx:id="songDurationLabel" textFill="WHITE">
                                  <padding>
                                      <Insets right="5.0" />
                                  </padding>
                              </Label>
                           <HBox alignment="CENTER">
-                              <Label fx:id="volumeLabel" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="0%" />
+                              <Label fx:id="volumeLabel" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="0%" textFill="WHITE" />
                               <Button fx:id="muteButton" graphicTextGap="0.0" onAction="#muteUnmute">
                                   <graphic>
                                       <ImageView fitHeight="20.0" fitWidth="20.0">
@@ -109,44 +106,59 @@
                           </HBox>
                          </children>
                      </VBox>
+               <VBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </VBox.margin>
                 </HBox>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
             </VBox>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
         </HBox>
     </bottom>
     <left>
-        <ScrollPane fitToWidth="true" BorderPane.alignment="CENTER">
-            <VBox fillWidth="false" spacing="30.0">
-                <VBox fillWidth="false" spacing="10.0" VBox.vgrow="NEVER">
-                    <Label text="Menu" />
-                    <Button graphicTextGap="10.0" onAction="#openExplorePanel" text="Explore">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="custom-scrollpane" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+            <VBox fx:id="menuVBox" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" styleClass="background-vbox" VBox.vgrow="ALWAYS">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" VBox.vgrow="ALWAYS">
+                    <Label text="Menu" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Label>
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" onAction="#openExplorePanel" text="Explore">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" text="Genres">
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Genres">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#openArtistPanel" text="Artists">
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openArtistPanel" text="Artists">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#openAlbumPanel" text="Albums">
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openAlbumPanel" text="Albums">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" onAction="#openSettingsPanel" text="Settings">
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openSettingsPanel" text="Settings">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
@@ -154,23 +166,26 @@
                         </graphic>
                     </Button>
                 </VBox>
-                <VBox fillWidth="false" spacing="10.0" VBox.vgrow="NEVER">
-                    <Label text="Playlists" />
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" text="Playlist 1">
+                <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" VBox.vgrow="ALWAYS">
+                    <Label text="Playlists" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font></Label>
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Playlist 1">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-                    <Button graphicTextGap="10.0" mnemonicParsing="false" text="Playlist 2">
+                    <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Playlist 2">
                         <graphic>
                             <ImageView fitHeight="15" fitWidth="15">
                                 <Image url="@../icons/back.png" />
                             </ImageView>
                         </graphic>
                     </Button>
-               <Button graphicTextGap="10.0" mnemonicParsing="false" text="New Playlist">
+               <Button graphicTextGap="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="New Playlist">
                    <graphic>
                        <ImageView fitHeight="15" fitWidth="15">
                            <Image url="@../icons/back.png" />
@@ -178,40 +193,50 @@
                    </graphic>
                </Button>
                 </VBox>
-                <padding>
-                    <Insets bottom="10.0" left="10.0" right="10.0" top="30.0" />
-                </padding>
             </VBox>
         </ScrollPane>
     </left>
    <center>
-      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" styleClass="stackPane" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets bottom="5.0" right="10.0" />
+         </padding></StackPane>
    </center>
    <top>
-      <HBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
-         <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-            <image>
-               <Image url="@../icons/Horia.jpg" />
-            </image>
-         </ImageView>
-         <Label text="Calul Fara Corp">
-            <font>
-               <Font name="System Bold" size="12.0" />
-            </font>
-         </Label>
-         <Pane prefHeight="50.0" HBox.hgrow="SOMETIMES" />
+      <HBox fx:id="topMainHBox" alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+         <HBox alignment="CENTER" spacing="10.0">
+            <children>
+               <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                     <Image url="@../icons/Horia.jpg" />
+                  </image>
+               </ImageView>
+               <Label text="Calul Fara Corp" textFill="WHITE">
+                  <font>
+                     <Font name="System Bold" size="12.0" />
+                  </font>
+               </Label>
+            </children>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+            <HBox.margin>
+               <Insets bottom="5.0" />
+            </HBox.margin>
+         </HBox>
+         <Pane HBox.hgrow="SOMETIMES" />
           <HBox alignment="TOP_RIGHT" spacing="5">
               <!-- Minimize Button -->
-              <Button onAction="#minimizeWindow" styleClass="window-button" text="—" />
+              <Button fx:id="minimizeButton" onAction="#minimizeWindow" styleClass="window-button" text="—" />
 
               <!-- Maximize/Windowed Button -->
-              <Button onAction="#toggleMaximize" styleClass="window-button" text="❐" />
+              <Button fx:id="toggleMaximizeButton" onAction="#toggleMaximize" styleClass="window-button" text="❐" />
 
               <!-- Close Button -->
-              <Button onAction="#closeApp" styleClass="window-button-close" text="✕" />
+              <Button fx:id="closeButton" onAction="#closeApp" styleClass="window-button-close" text="✕" />
           </HBox>
          <padding>
-            <Insets left="10.0" />
+            <Insets bottom="5.0" left="10.0" right="5.0" top="10.0" />
          </padding>
       </HBox>
    </top>

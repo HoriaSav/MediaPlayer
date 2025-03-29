@@ -1,30 +1,64 @@
 .button {
-    -fx-background-color: lightgrey;
-    -fx-background-radius: 6;
-    -fx-border-radius: 6;
-}
-#playButton{
-    -fx-background-color: transparent;
-}
-#skipButton{
-    -fx-background-color: transparent;
-}
-
-#goBackButton{
-    -fx-background-color: transparent;
-}
-
-#muteButton{
-    -fx-background-color: transparent;
+    -fx-background-color: #3a3a3a;       /* dark gray background */
+    -fx-text-fill: #f0f0f0;              /* light text */
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #5a5a5a;           /* soft border */
+    -fx-border-width: 1;
+    -fx-padding: 6 12;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0, 0, 1);
 }
 
 .button:hover {
-    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.6), 10, 0.7, 0, 0);
+    -fx-background-color: #505050;       /* lighter on hover */
 }
 
 .button:pressed {
-    -fx-effect: innershadow(gaussian, rgba(255, 255, 255, 0.8), 5, 0.8, 0, 0);
+    -fx-background-color: #2a2a2a;       /* darker when clicked */
 }
+
+
+#playButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#skipButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#goBackButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#muteButton {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+#closeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+    -fx-border-width: 0;
+}
+
+#toggleMaximizeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: yellow;
+    -fx-border-width: 0;
+
+}
+
+#minimizeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: green;
+    -fx-border-width: 0;
+}
+
 .slider {
     -fx-padding: 4;
 }
@@ -32,7 +66,7 @@
 .slider .track {
     -fx-background-color: transparent;
     -fx-background-radius: 3;
-    -fx-pref-height: 6;
+    -fx-pref-height: 12;
 }
 
 .slider .thumb {
@@ -40,14 +74,15 @@
     -fx-background-radius: 10;
     -fx-pref-width: 12;
     -fx-pref-height: 12;
-    -fx-effect: dropshadow(gaussian, rgba(255,255,255,0.4), 4, 0.4, 0, 0);
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 4, 0.4, 0, 0);
 }
+
 .progress-bar {
     -fx-accent: #4fc3f7; /* progress color */
     -fx-padding: 0 10 0 10;
-    -fx-background-color: #1e1e1e;
-    -fx-control-inner-background: rgba(255, 255, 255, 0.1); /* unfilled background */
-    -fx-background-radius: 50;
+    -fx-background-color: #3b3b3b; /* #1e1e1e*/
+    -fx-control-inner-background: rgba(255, 255, 255, 0.1); /* unfilled background rgba(255, 255, 255, 0.1)*/
+    -fx-background-radius: 100;
 }
 
 .progress-bar .track {
@@ -58,5 +93,54 @@
 
 .progress-bar .bar {
     -fx-background-color: #4fc3f7; /* filled part */
-    -fx-background-radius: 50;
+    -fx-background-radius: 100;
+}
+
+#volumeProgressBar {
+    -fx-background-color: black;
+}
+
+.background-vbox {
+    -fx-background-color: black;
+}
+
+#menuVBox {
+    -fx-background-color: #3b3b3b;
+    -fx-background-radius: 10;
+    -fx-padding: 10 10 10 10;
+}
+
+.custom-hbox {
+    -fx-background-color: #3b3b3b; /* medium-dark gray */
+    -fx-background-radius: 10px;
+    -fx-border-color: #5a5a5a; /* soft contrast border */
+    -fx-border-radius: 10px;
+    -fx-padding: 5 5 5 5;
+}
+
+#topMainHBox {
+    -fx-background-color: black;
+}
+
+.custom-scrollpane {
+    -fx-background-color: black;
+    -fx-padding: 10 10 10 10;
+}
+
+.custom-scrollpane .scroll-bar {
+    -fx-background-color: #2e2e2e; /* scroll bar track */
+}
+
+.custom-scrollpane .thumb {
+    -fx-background-color: #5a5a5a; /* scroll bar thumb */
+    -fx-background-radius: 5;
+}
+
+.custom-scrollpane .viewport {
+    -fx-background-color: black;
+}
+
+.stackPane{
+    -fx-background-color: black;
+    -fx-padding: 10 10 10 5;
 }

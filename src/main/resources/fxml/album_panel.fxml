@@ -6,12 +6,12 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
+<VBox styleClass="custom-hbox" stylesheets="@mediaPlayer_light.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
    <children>
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Button fx:id="getFileLocationButton" mnemonicParsing="false" onAction="#setFileLocation" text="Add track" />
-            <Label fx:id="fileLocationLabel" />
+            <Label fx:id="fileLocationLabel" textFill="WHITE" />
          </children>
       </HBox>
       <VBox fx:id="trackListVBox" />
