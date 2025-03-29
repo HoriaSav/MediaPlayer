@@ -22,16 +22,19 @@ public class MainPanelController {
     public StackPane stackPane;
 
     @FXML
-    public Label trackName;
+    public Label albumNameLabel;
     @FXML
-    public Label albumName;
+    public Label trackNameLabel;
     @FXML
     public Label songDurationLabel;
 
     @FXML
     public Button playButton;
 
-    @FXML Button muteButton;
+    @FXML
+    public Button muteButton;
+    @FXML
+    public Label artistLabel;
 
     private static TrackUiContainer trackUiContainer;
 
@@ -49,7 +52,7 @@ public class MainPanelController {
     }
 
     private void setTrackUiContainer() {
-        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, songDurationLabel);
+        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, songDurationLabel, trackNameLabel, albumNameLabel, artistLabel);
     }
 
     @FXML
@@ -61,8 +64,8 @@ public class MainPanelController {
     }
 
     @FXML
-    public void playTrack() {
-        AccesController.getTrackPlayerHelper().playTrack();
+    public void playPauseTrack() {
+        AccesController.getTrackPlayerHelper().playPauseTrack();
     }
 
     @FXML

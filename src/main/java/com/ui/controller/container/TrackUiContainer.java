@@ -7,11 +7,18 @@ public class TrackUiContainer {
     private Slider songSlider;
     private Slider volumeSlider;
     private Label songDurationLabel;
+    private Label trackNameLabel;
+    private Label albumNameLabel;
+    private Label artistLabel;
     private boolean isMuted = false;
-    public TrackUiContainer(Slider songSlider, Slider volumeSlider, Label songDurationLabel) {
+
+    public TrackUiContainer(Slider songSlider, Slider volumeSlider, Label songDurationLabel, Label trackNameLabel, Label albumNameLabel, Label artistLabel) {
         this.songSlider = songSlider;
         this.volumeSlider = volumeSlider;
         this.songDurationLabel = songDurationLabel;
+        this.trackNameLabel = trackNameLabel;
+        this.albumNameLabel = albumNameLabel;
+        this.artistLabel = artistLabel;
     }
 
     public Slider getSongSlider() {
@@ -44,5 +51,29 @@ public class TrackUiContainer {
 
     public void setMuted(boolean muted) {
         isMuted = muted;
+    }
+
+    public Label getAlbumNameLabel() {
+        return albumNameLabel;
+    }
+
+    public void setAlbumNameLabel(Label albumName) {
+        this.albumNameLabel = albumName;
+    }
+
+    public Label getTrackNameLabel() {
+        return trackNameLabel;
+    }
+
+    public void setTrackNameLabel(Label trackName) {
+        this.trackNameLabel = trackName;
+    }
+
+    public Label getArtistLabel() {
+        return artistLabel;
+    }
+
+    public void setArtistLabel(Label artistLabel) {
+        this.artistLabel = artistLabel;
     }
 }

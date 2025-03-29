@@ -13,6 +13,7 @@ import java.io.File;
 
 public class TrackPlayerHelper {
     private MediaPlayer mediaPlayer;
+    private File file;
 
     public TrackPlayerHelper() {
     }
@@ -29,11 +30,18 @@ public class TrackPlayerHelper {
         File file = fileChooser.showOpenDialog(button.getScene().getWindow());
 
         if (file != null) {
+            this.file = file;
             String mediaPath = file.toURI().toString();
             label.setText(mediaPath);
             setMediaPlayer(mediaPath);
         }
 
+        setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
+        mediaPlayer.setOnReady(() -> {
+            setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
+            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
+            setTrackInfo(AccesController.getTrackUiContainer().getTrackNameLabel(), AccesController.getTrackUiContainer().getAlbumNameLabel(), AccesController.getTrackUiContainer().getArtistLabel());
+        });
     }
 
     private void setMediaPlayer(String mediaPath) {
@@ -47,12 +55,14 @@ public class TrackPlayerHelper {
         System.out.println("Media loaded and ready to play.");
     }
 
-    public void playTrack() {
+    public void playPauseTrack() {
         if (mediaPlayer != null) {
-            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
-            setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
-            setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
-            mediaPlayer.play();
+            if(mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+            }
+            else {
+                mediaPlayer.play();
+            }
         }
     }
 
@@ -61,7 +71,6 @@ public class TrackPlayerHelper {
         long minutes = (long) time.toMinutes();
         long seconds = (long) (time.toSeconds() % 60);
         songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
-        setDurationSliderLength();
     }
 
     private void setDurationSliderLength(){
@@ -70,6 +79,12 @@ public class TrackPlayerHelper {
     }
 
     private void setupSongProgressBinding(Slider progressSlider) {
+        setDurationSliderLength();
+
+        mediaPlayer.setOnReady(() -> {
+            Duration total = mediaPlayer.getMedia().getDuration();
+            progressSlider.setMax(total.toSeconds());
+        });
 
         mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
             if (!progressSlider.isValueChanging()) { // avoid conflict when user is dragging
@@ -96,7 +111,7 @@ public class TrackPlayerHelper {
         });
     }
 
-    private void setUpVolumeSlider(Slider volumeSlider) {
+    public void setUpVolumeSlider(Slider volumeSlider) {
         volumeSlider.setMin(0.0);
         volumeSlider.setMax(1.0);
         mediaPlayer.setVolume(volumeSlider.getValue());
@@ -112,5 +127,11 @@ public class TrackPlayerHelper {
                 mediaPlayer.setVolume(volumeSlider.getValue());
             }
         });
+    }
+
+    private void setTrackInfo(Label trackNameLabel, Label albumNameLabel, Label artistNameLabel) {
+        trackNameLabel.setText(FileInfoExtractor.getTrackTitle(file));
+        albumNameLabel.setText(FileInfoExtractor.getAlbumTitle(file));
+        artistNameLabel.setText(FileInfoExtractor.getArtistTitle(file));
     }
 }

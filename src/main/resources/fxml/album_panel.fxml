@@ -11,7 +11,7 @@
       <HBox alignment="CENTER_LEFT" spacing="10.0">
          <children>
             <Button fx:id="getFileLocationButton" mnemonicParsing="false" onAction="#setFileLocation" text="Add track" />
-            <Label fx:id="fileLocationLabel" text="File location:" />
+            <Label fx:id="fileLocationLabel" />
          </children>
       </HBox>
    </children>
