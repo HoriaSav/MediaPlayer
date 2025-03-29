@@ -49,8 +49,9 @@ public class TrackPlayerHelper {
 
     public void playTrack() {
         if (mediaPlayer != null) {
-            setupProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
+            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
             setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
+            setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
             mediaPlayer.play();
         }
     }
@@ -62,7 +63,7 @@ public class TrackPlayerHelper {
         songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
     }
 
-    private void setupProgressBinding(Slider progressSlider) {
+    private void setupSongProgressBinding(Slider progressSlider) {
         mediaPlayer.setOnReady(() -> {
             Duration total = mediaPlayer.getMedia().getDuration();
             progressSlider.setMax(total.toSeconds());
@@ -89,6 +90,24 @@ public class TrackPlayerHelper {
         progressSlider.setOnMousePressed(event -> {
             if (mediaPlayer != null) {
                 mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
+            }
+        });
+    }
+
+    private void setUpVolumeSlider(Slider volumeSlider) {
+        volumeSlider.setMin(0.0);
+        volumeSlider.setMax(1.0);
+        mediaPlayer.setVolume(volumeSlider.getValue());
+
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(newVal.doubleValue());
+            }
+        });
+
+        volumeSlider.setOnMousePressed(event -> {
+            if (mediaPlayer != null) {
+                mediaPlayer.setVolume(volumeSlider.getValue());
             }
         });
     }
