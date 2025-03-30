@@ -1,9 +1,14 @@
 package com.ui.controller.container;
 
+import com.ui.tools.FileInfoExtractor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
+
+import java.io.File;
+
+import javafx.util.Duration;
 
 public class TrackUiContainer {
 
@@ -120,8 +125,41 @@ public class TrackUiContainer {
         );
     }
 
-    public void setProgressBarsInSync(){
+    public void setProgressBarsInSync() {
         setProgressBarInSync(trackProgressBar, trackSlider);
         setProgressBarInSync(volumeProgressBar, volumeSlider);
+        setUpVolumeSlider();
+        setUpVolumeLabel();
+    }
+
+    private void setUpVolumeSlider() {
+        volumeSlider.setMin(0.0);
+        volumeSlider.setMax(1.0);
+    }
+
+    private void setUpVolumeLabel() {
+        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+            int percent = (int) (newVal.doubleValue() * 100);
+            volumeLabel.setText(percent + "%");
+        });
+    }
+
+    public void setTrackInfoInUI(File file) {
+        try {
+            trackNameLabel.setText(FileInfoExtractor.getTrackTitle(file));
+            albumNameLabel.setText(FileInfoExtractor.getAlbumTitle(file));
+            artistLabel.setText(FileInfoExtractor.getArtistTitle(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+            trackNameLabel.setText(file.getName());
+            albumNameLabel.setText("");
+            artistLabel.setText("");
+        }
+    }
+
+    public void setTrackDurationLabel(Duration time) {
+        long minutes = (long) time.toMinutes();
+        long seconds = (long) (time.toSeconds() % 60);
+        trackDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
     }
 }

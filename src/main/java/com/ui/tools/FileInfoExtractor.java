@@ -3,45 +3,32 @@ package com.ui.tools;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
+import org.jaudiotagger.audio.exceptions.CannotReadException;
+import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
+import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
 import org.jaudiotagger.tag.FieldKey;
 import org.jaudiotagger.tag.Tag;
+import org.jaudiotagger.tag.TagException;
 
 import java.io.File;
+import java.io.IOException;
 
 public class FileInfoExtractor {
-    public static String getTrackTitle(File file) {
-        try {
-            AudioFile audioFile = AudioFileIO.read(file); // 'file' is your selected media file
-            Tag tag = audioFile.getTag();
+    private static Tag getFileTag(File file) throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        AudioFile audioFile = AudioFileIO.read(file); // 'file' is your selected media file
 
-            return tag.getFirst(FieldKey.TITLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return file.getName();
-        }
+        return audioFile.getTag();
     }
 
-    public static String getAlbumTitle(File file) {
-        try {
-            AudioFile audioFile = AudioFileIO.read(file); // 'file' is your selected media file
-            Tag tag = audioFile.getTag();
-
-            return tag.getFirst(FieldKey.ALBUM);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+    public static String getTrackTitle(File file) throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+            return getFileTag(file).getFirst(FieldKey.TITLE);
     }
 
-    public static String getArtistTitle(File file) {
-        try {
-            AudioFile audioFile = AudioFileIO.read(file); // 'file' is your selected media file
-            Tag tag = audioFile.getTag();
+    public static String getAlbumTitle(File file) throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        return getFileTag(file).getFirst(FieldKey.ALBUM);
+    }
 
-            return tag.getFirst(FieldKey.ARTIST);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "";
-        }
+    public static String getArtistTitle(File file) throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
+        return getFileTag(file).getFirst(FieldKey.ALBUM);
     }
 }

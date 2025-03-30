@@ -12,6 +12,8 @@ import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.util.Objects;
+
 
 public class TrackPlayerHelper {
     private MediaPlayer mediaPlayer;
@@ -53,7 +55,7 @@ public class TrackPlayerHelper {
 
         mediaPlayer.setOnReady(() -> {
             setupSongProgressBinding(AccesController.getTrackUiContainer().getTrackSlider());
-            setTrackInfoInUi(AccesController.getTrackUiContainer().getTrackNameLabel(), AccesController.getTrackUiContainer().getAlbumNameLabel(), AccesController.getTrackUiContainer().getArtistLabel());
+            setTrackInfoInUi();
         });
     }
 
@@ -61,72 +63,48 @@ public class TrackPlayerHelper {
         if (mediaPlayer != null) {
             if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
                 mediaPlayer.pause();
-                Image img = new Image(getClass().getResourceAsStream("/icons/play.png"));
-                ImageView view = new ImageView(img);
-                view.setFitWidth(20);  // optional: scale it
-                view.setFitHeight(20);
-                AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
+                setPlayPauseButtonImage("/icons/play.png");
             } else {
                 mediaPlayer.play();
-                Image img = new Image(getClass().getResourceAsStream("/icons/pause.png"));
-                ImageView view = new ImageView(img);
-                view.setFitWidth(20);  // optional: scale it
-                view.setFitHeight(20);
-                AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
+                setPlayPauseButtonImage("/icons/pause.png");
             }
         }
     }
 
-    private void setUpDurationLabel(Label songDurationLabel) {
-        Duration time = mediaPlayer.getMedia().getDuration();
-        long minutes = (long) time.toMinutes();
-        long seconds = (long) (time.toSeconds() % 60);
-        songDurationLabel.setText(String.format("%02d:%02d", minutes, seconds));
+    private void setPlayPauseButtonImage(String imagePath) {
+        Image img = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagePath)));
+        ImageView view = new ImageView(img);
+        view.setFitWidth(30);  // optional: scale it
+        view.setFitHeight(30);
+        AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
     }
 
-    private void setUpVolumeLabel(Label label) {
-        AccesController.getTrackUiContainer().getVolumeSlider().valueProperty().addListener((obs, oldVal, newVal) -> {
-            int percent = (int) (newVal.doubleValue() * 100);
-            label.setText(percent + "%");
-
-            if (mediaPlayer != null) {
-                mediaPlayer.setVolume(newVal.doubleValue());
-            }
-        });
-    }
-
-    private void setDurationSliderLength() {
-        Duration total = mediaPlayer.getMedia().getDuration();
-        AccesController.getTrackUiContainer().getTrackSlider().setMax(total.toSeconds());
+    private Duration getDuration() {
+        return mediaPlayer.getMedia().getDuration();
     }
 
     private void setupSongProgressBinding(Slider progressSlider) {
-        setDurationSliderLength();
+        progressSlider.setMax(getDuration().toSeconds());
 
-        mediaPlayer.setOnReady(() -> {
-            Duration total = mediaPlayer.getMedia().getDuration();
-            progressSlider.setMax(total.toSeconds());
-        });
-
-        mediaPlayer.currentTimeProperty().addListener((obs, oldTime, newTime) -> {
+        mediaPlayer.currentTimeProperty().addListener((_, _, newTime) -> {
             if (!progressSlider.isValueChanging()) { // avoid conflict when user is dragging
                 progressSlider.setValue(newTime.toSeconds());
             }
         });
 
-        progressSlider.setOnMouseReleased(event -> {
+        progressSlider.setOnMouseReleased(_ -> {
             if (mediaPlayer != null) {
                 mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
             }
         });
 
-        progressSlider.valueChangingProperty().addListener((obs, wasChanging, isChanging) -> {
+        progressSlider.valueChangingProperty().addListener((_, _, isChanging) -> {
             if (!isChanging && mediaPlayer != null) {
                 mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
             }
         });
 
-        progressSlider.setOnMousePressed(event -> {
+        progressSlider.setOnMousePressed(_ -> {
             if (mediaPlayer != null) {
                 mediaPlayer.seek(Duration.seconds(progressSlider.getValue()));
             }
@@ -134,28 +112,24 @@ public class TrackPlayerHelper {
     }
 
     public void setUpVolumeSlider(Slider volumeSlider) {
-        volumeSlider.setMin(0.0);
-        volumeSlider.setMax(1.0);
         mediaPlayer.setVolume(volumeSlider.getValue());
 
-        volumeSlider.valueProperty().addListener((obs, oldVal, newVal) -> {
+        volumeSlider.valueProperty().addListener((_, _, newVal) -> {
             if (mediaPlayer != null) {
                 mediaPlayer.setVolume(newVal.doubleValue());
             }
         });
 
-        volumeSlider.setOnMousePressed(event -> {
+        volumeSlider.setOnMousePressed(_ -> {
             if (mediaPlayer != null) {
                 mediaPlayer.setVolume(volumeSlider.getValue());
             }
         });
-        setUpVolumeLabel(AccesController.getTrackUiContainer().getVolumeLabel());
     }
 
-    private void setTrackInfoInUi(Label trackNameLabel, Label albumNameLabel, Label artistNameLabel) {
-        trackNameLabel.setText(FileInfoExtractor.getTrackTitle(file));
-        albumNameLabel.setText(FileInfoExtractor.getAlbumTitle(file));
-        artistNameLabel.setText(FileInfoExtractor.getArtistTitle(file));
-        setUpDurationLabel(AccesController.getTrackUiContainer().getTrackDurationLabel());
+    private void setTrackInfoInUi() {
+        AccesController.getTrackUiContainer().setTrackInfoInUI(file);
+        AccesController.getTrackUiContainer().getTrackSlider().setMax(getDuration().toSeconds());
+        AccesController.getTrackUiContainer().setTrackDurationLabel(getDuration());
     }
 }

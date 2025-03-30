@@ -20,18 +20,26 @@
         <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <VBox spacing="5.0" styleClass="background-vbox" HBox.hgrow="SOMETIMES">
                 <StackPane VBox.vgrow="SOMETIMES">
+               <Pane styleClass="custom-hbox">
+                  <StackPane.margin>
+                     <Insets />
+                  </StackPane.margin>
+               </Pane>
                     <ProgressBar fx:id="trackProgressbar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" StackPane.alignment="CENTER" />
 
-                    <Slider fx:id="trackSlider" max="1" min="0" value="0" />
+                    <Slider fx:id="trackSlider" max="1" min="0" value="0">
+                  <StackPane.margin>
+                     <Insets />
+                  </StackPane.margin></Slider>
                <VBox.margin>
-                  <Insets left="5.0" right="5.0" top="5.0" />
+                  <Insets left="5.0" right="5.0" />
                </VBox.margin>
                 </StackPane>
                 <HBox alignment="CENTER_LEFT" prefHeight="50.0" styleClass="custom-hbox">
                     <padding>
                         <Insets left="10.0" />
                     </padding>
-                    <HBox spacing="10.0">
+                    <HBox alignment="CENTER" spacing="10.0">
                         <children>
                             <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
                                 <image>
@@ -123,7 +131,7 @@
         </HBox>
     </bottom>
     <left>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="custom-scrollpane" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="custom-scrollpane" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
             <VBox fx:id="menuVBox" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" styleClass="background-vbox" VBox.vgrow="ALWAYS">
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" VBox.vgrow="ALWAYS">
                     <Label text="Menu" textFill="WHITE">

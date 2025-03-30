@@ -80,7 +80,7 @@
 .progress-bar {
     -fx-accent: #4fc3f7; /* progress color */
     -fx-padding: 0 10 0 10;
-    -fx-background-color: #3b3b3b; /* #1e1e1e*/
+    -fx-background-color: transparent; /* #3b3b3b*/
     -fx-control-inner-background: rgba(255, 255, 255, 0.1); /* unfilled background rgba(255, 255, 255, 0.1)*/
     -fx-background-radius: 100;
 }
@@ -138,6 +138,23 @@
 
 .custom-scrollpane .viewport {
     -fx-background-color: black;
+}
+
+.scroll-bar .thumb:hover {
+    -fx-background-color: #888;
+}
+
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
+    -fx-shape: " ";
+}
+
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-padding: 0;
+    -fx-background-color: transparent;
 }
 
 .stackPane{
