@@ -2,38 +2,36 @@ package com.ui.controller.container;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 
 public class TrackUiContainer {
 
-    private Slider songSlider;
+    private Slider trackSlider;
     private Slider volumeSlider;
 
-    private Label songDurationLabel;
+    private Label trackDurationLabel;
     private Label trackNameLabel;
     private Label albumNameLabel;
     private Label artistLabel;
     private Label volumeLabel;
 
     private Button playPauseButton;
-    private boolean isMuted = false;
+    private Button muteButton;
 
-    public TrackUiContainer(Slider songSlider, Slider volumeSlider, Label volumeLabel, Label songDurationLabel, Label trackNameLabel, Label albumNameLabel, Label artistLabel) {
-        this.songSlider = songSlider;
-        this.volumeSlider = volumeSlider;
-        this.songDurationLabel = songDurationLabel;
-        this.trackNameLabel = trackNameLabel;
-        this.albumNameLabel = albumNameLabel;
-        this.artistLabel = artistLabel;
-        this.volumeLabel = volumeLabel;
+    private ProgressBar trackProgressBar;
+    private ProgressBar volumeProgressBar;
+
+    public TrackUiContainer() {
+
     }
 
-    public Slider getSongSlider() {
-        return songSlider;
+    public Slider getTrackSlider() {
+        return trackSlider;
     }
 
-    public void setSongSlider(Slider songSlider) {
-        this.songSlider = songSlider;
+    public void setTrackSlider(Slider trackSlider) {
+        this.trackSlider = trackSlider;
     }
 
     public Slider getVolumeSlider() {
@@ -44,36 +42,28 @@ public class TrackUiContainer {
         this.volumeSlider = volumeSlider;
     }
 
-    public Label getSongDurationLabel() {
-        return songDurationLabel;
+    public Label getTrackDurationLabel() {
+        return trackDurationLabel;
     }
 
-    public void setSongDurationLabel(Label songDurationLabel) {
-        this.songDurationLabel = songDurationLabel;
-    }
-
-    public boolean isMuted() {
-        return isMuted;
-    }
-
-    public void setMuted(boolean muted) {
-        isMuted = muted;
-    }
-
-    public Label getAlbumNameLabel() {
-        return albumNameLabel;
-    }
-
-    public void setAlbumNameLabel(Label albumName) {
-        this.albumNameLabel = albumName;
+    public void setTrackDurationLabel(Label trackDurationLabel) {
+        this.trackDurationLabel = trackDurationLabel;
     }
 
     public Label getTrackNameLabel() {
         return trackNameLabel;
     }
 
-    public void setTrackNameLabel(Label trackName) {
-        this.trackNameLabel = trackName;
+    public void setTrackNameLabel(Label trackNameLabel) {
+        this.trackNameLabel = trackNameLabel;
+    }
+
+    public Label getAlbumNameLabel() {
+        return albumNameLabel;
+    }
+
+    public void setAlbumNameLabel(Label albumNameLabel) {
+        this.albumNameLabel = albumNameLabel;
     }
 
     public Label getArtistLabel() {
@@ -98,5 +88,40 @@ public class TrackUiContainer {
 
     public void setPlayPauseButton(Button playPauseButton) {
         this.playPauseButton = playPauseButton;
+    }
+
+    public Button getMuteButton() {
+        return muteButton;
+    }
+
+    public void setMuteButton(Button muteButton) {
+        this.muteButton = muteButton;
+    }
+
+    public ProgressBar getTrackProgressBar() {
+        return trackProgressBar;
+    }
+
+    public void setTrackProgressBar(ProgressBar trackProgressBar) {
+        this.trackProgressBar = trackProgressBar;
+    }
+
+    public ProgressBar getVolumeProgressBar() {
+        return volumeProgressBar;
+    }
+
+    public void setVolumeProgressBar(ProgressBar volumeProgressBar) {
+        this.volumeProgressBar = volumeProgressBar;
+    }
+
+    private void setProgressBarInSync(ProgressBar progressBar, Slider slider) {
+        progressBar.progressProperty().bind(
+                slider.valueProperty().divide(slider.maxProperty())
+        );
+    }
+
+    public void setProgressBarsInSync(){
+        setProgressBarInSync(trackProgressBar, trackSlider);
+        setProgressBarInSync(volumeProgressBar, volumeSlider);
     }
 }

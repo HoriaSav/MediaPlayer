@@ -17,29 +17,29 @@ public class MainPanelController {
     @FXML
     public Slider volumeSlider;
     @FXML
-    public Slider songSlider;
+    public Slider trackSlider;
 
     @FXML
     public StackPane stackPane;
 
     @FXML
-    public Label albumNameLabel;
-    @FXML
     public Label trackNameLabel;
     @FXML
-    public Label songDurationLabel;
+    public Label albumLabel;
+    @FXML
+    public Label artistLabel;
+    @FXML
+    public Label trackDurationLabel;
     @FXML
     public Label volumeLabel;
 
     @FXML
-    public Button playButton;
-
+    public Button playPauseButton;
     @FXML
     public Button muteButton;
+
     @FXML
-    public Label artistLabel;
-    @FXML
-    public ProgressBar songProgressProgressbar;
+    public ProgressBar trackProgressbar;
     @FXML
     public ProgressBar volumeProgressBar;
 
@@ -48,29 +48,8 @@ public class MainPanelController {
     public void initialize() {
         AccesController.setTrackPlayerHelper();
         FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
-        AccesController.setMainPanelController(this);
-        setProgressBarInSync();
-    }
-
-    private void setProgressBarInSync(){
-        songProgressProgressbar.progressProperty().bind(
-                songSlider.valueProperty().divide(songSlider.maxProperty())
-        );
-        volumeProgressBar.progressProperty().bind(
-                volumeSlider.valueProperty().divide(volumeSlider.maxProperty())
-        );
-    }
-
-    public TrackUiContainer getTrackUiContainer() {
-        if(trackUiContainer == null) {
-            setTrackUiContainer();
-        }
-        return trackUiContainer;
-    }
-
-    private void setTrackUiContainer() {
-        trackUiContainer = new TrackUiContainer(songSlider, volumeSlider, volumeLabel, songDurationLabel, trackNameLabel, albumNameLabel, artistLabel);
-        trackUiContainer.setPlayPauseButton(playButton);
+        trackUiContainer = setTrackUiContainer();
+        AccesController.setTrackUiContainer(trackUiContainer);
     }
 
     @FXML
@@ -125,5 +104,31 @@ public class MainPanelController {
     private void toggleMaximize(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
+    }
+
+    public TrackUiContainer getTrackUiContainer() {
+        return trackUiContainer;
+    }
+
+    private TrackUiContainer setTrackUiContainer() {
+        TrackUiContainer trackUiContainer = new TrackUiContainer();
+        trackUiContainer.setTrackNameLabel(trackNameLabel);
+        trackUiContainer.setArtistLabel(artistLabel);
+        trackUiContainer.setAlbumNameLabel(albumLabel);
+        trackUiContainer.setTrackDurationLabel(trackDurationLabel);
+        trackUiContainer.setVolumeLabel(volumeLabel);
+
+        trackUiContainer.setMuteButton(muteButton);
+        trackUiContainer.setPlayPauseButton(playPauseButton);
+
+        trackUiContainer.setTrackSlider(trackSlider);
+        trackUiContainer.setVolumeSlider(volumeSlider);
+
+        trackUiContainer.setTrackProgressBar(trackProgressbar);
+        trackUiContainer.setVolumeProgressBar(volumeProgressBar);
+
+        trackUiContainer.setProgressBarsInSync();
+
+        return trackUiContainer;
     }
 }

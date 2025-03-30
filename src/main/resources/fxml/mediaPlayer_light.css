@@ -20,7 +20,7 @@
 }
 
 
-#playButton {
+#playPauseButton {
     -fx-background-color: transparent;
     -fx-border-width: 0;
 }

@@ -52,7 +52,7 @@ public class TrackPlayerHelper {
         setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
 
         mediaPlayer.setOnReady(() -> {
-            setupSongProgressBinding(AccesController.getTrackUiContainer().getSongSlider());
+            setupSongProgressBinding(AccesController.getTrackUiContainer().getTrackSlider());
             setTrackInfoInUi(AccesController.getTrackUiContainer().getTrackNameLabel(), AccesController.getTrackUiContainer().getAlbumNameLabel(), AccesController.getTrackUiContainer().getArtistLabel());
         });
     }
@@ -97,7 +97,7 @@ public class TrackPlayerHelper {
 
     private void setDurationSliderLength() {
         Duration total = mediaPlayer.getMedia().getDuration();
-        AccesController.getTrackUiContainer().getSongSlider().setMax(total.toSeconds());
+        AccesController.getTrackUiContainer().getTrackSlider().setMax(total.toSeconds());
     }
 
     private void setupSongProgressBinding(Slider progressSlider) {
@@ -156,6 +156,6 @@ public class TrackPlayerHelper {
         trackNameLabel.setText(FileInfoExtractor.getTrackTitle(file));
         albumNameLabel.setText(FileInfoExtractor.getAlbumTitle(file));
         artistNameLabel.setText(FileInfoExtractor.getArtistTitle(file));
-        setUpDurationLabel(AccesController.getTrackUiContainer().getSongDurationLabel());
+        setUpDurationLabel(AccesController.getTrackUiContainer().getTrackDurationLabel());
     }
 }

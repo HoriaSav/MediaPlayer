@@ -20,9 +20,9 @@
         <HBox alignment="CENTER_LEFT" BorderPane.alignment="CENTER">
             <VBox spacing="5.0" styleClass="background-vbox" HBox.hgrow="SOMETIMES">
                 <StackPane VBox.vgrow="SOMETIMES">
-                    <ProgressBar fx:id="songProgressProgressbar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" StackPane.alignment="CENTER" />
+                    <ProgressBar fx:id="trackProgressbar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" StackPane.alignment="CENTER" />
 
-                    <Slider fx:id="songSlider" max="1" min="0" value="0" />
+                    <Slider fx:id="trackSlider" max="1" min="0" value="0" />
                <VBox.margin>
                   <Insets left="5.0" right="5.0" top="5.0" />
                </VBox.margin>
@@ -47,7 +47,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </Label>
-                                        <Label fx:id="albumNameLabel" text="Album" textFill="WHITE">
+                                        <Label fx:id="albumLabel" text="Album" textFill="WHITE">
                                             <font>
                                                 <Font size="10.0" />
                                             </font>
@@ -66,7 +66,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button fx:id="playButton" onAction="#playPauseTrack">
+                        <Button fx:id="playPauseButton" onAction="#playPauseTrack">
                             <graphic>
                                 <ImageView fitHeight="30.0" fitWidth="30.0">
                                     <Image url="@../icons/play.png" />
@@ -83,7 +83,7 @@
                     </HBox>
                      <VBox alignment="TOP_RIGHT" spacing="5.0">
                          <children>
-                             <Label fx:id="songDurationLabel" textFill="WHITE">
+                             <Label fx:id="trackDurationLabel" textFill="WHITE">
                                  <padding>
                                      <Insets right="5.0" />
                                  </padding>
