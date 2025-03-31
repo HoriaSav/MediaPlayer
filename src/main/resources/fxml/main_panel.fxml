@@ -131,7 +131,7 @@
         </HBox>
     </bottom>
     <left>
-        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="custom-scrollpane" vbarPolicy="ALWAYS" BorderPane.alignment="CENTER">
+        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" nodeOrientation="LEFT_TO_RIGHT" styleClass="custom-scrollpane" BorderPane.alignment="CENTER">
             <VBox fx:id="menuVBox" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="30.0" styleClass="background-vbox" VBox.vgrow="ALWAYS">
                 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="10.0" VBox.vgrow="ALWAYS">
                     <Label text="Menu" textFill="WHITE">
