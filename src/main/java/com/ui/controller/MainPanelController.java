@@ -1,17 +1,22 @@
 package com.ui.controller;
 
+import com.app_core.utils.Track;
 import com.ui.controller.container.TrackUiContainer;
 import com.ui.tools.FxmlFileOpener;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainPanelController {
     @FXML
@@ -43,6 +48,9 @@ public class MainPanelController {
     @FXML
     public ProgressBar volumeProgressBar;
 
+    @FXML
+    public VBox playlistVBox;
+
     private static TrackUiContainer trackUiContainer;
 
     public void initialize() {
@@ -54,15 +62,42 @@ public class MainPanelController {
 
     @FXML
     public void skipTrack() {
+        if (AccesController.getPlayerService().hasNextTrack()) {
+            AccesController.getPlayerService().playNextTrack();
+        }
     }
 
     @FXML
     public void goBackTrack() {
+        if (AccesController.getPlayerService().hasPreviousTrack()) {
+            AccesController.getPlayerService().playPreviousTrack();
+        }
     }
 
     @FXML
     public void playPauseTrack() {
-        AccesController.getTrackPlayerHelper().playPauseTrack();
+        AccesController.getPlayerService().playPauseTrack();
+    }
+
+    public void loadFolder() {
+        try {
+            AccesController.getAlbumPanelController().trackListVBox.getChildren().clear();
+            for (Track track : AccesController.getPlayerService().getCurrentFolderTracks()) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/album_item_panel.fxml"));
+                Node itemNode = loader.load();
+                AlbumItemController albumItemController = loader.getController();
+                albumItemController.setTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
+                albumItemController.getPlayTrackButton().setOnAction(_ -> {
+                    selectTrack(track.getName());
+                });
+                AccesController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
+            }
+        }
+        catch (IOException e){}
+    }
+
+    public void selectTrack(String trackName) {
+        AccesController.getPlayerService().playCurrentFolder(trackName);
     }
 
     @FXML
@@ -87,6 +122,24 @@ public class MainPanelController {
 
     @FXML
     public void openPlaylistPanel() {
+    }
+
+    @FXML
+    public void addNewPlaylist() {
+        AccesController.getPlayerService().addFolder();
+        Button button = new Button();
+        String folderName = AccesController.getPlayerService().getFolderName();
+        button.setText(folderName);
+        button.setOnAction(_ -> {
+            setCurrentPlaylist(button.getText());
+        });
+        playlistVBox.getChildren().add(button);
+    }
+
+    public void setCurrentPlaylist(String playlistName) {
+
+        AccesController.getPlayerService().setCurrentFolder(playlistName);
+        loadFolder();
     }
 
     @FXML

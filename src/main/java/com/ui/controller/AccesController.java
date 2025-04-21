@@ -1,19 +1,20 @@
 package com.ui.controller;
 
+import com.app_core.service.PlayerService;
 import com.ui.controller.container.TrackUiContainer;
-import com.ui.tools.TrackPlayerHelper;
-import javafx.scene.control.Slider;
+
 
 public class AccesController {
-    private static TrackPlayerHelper trackPlayerHelper;
+    private static PlayerService playerService;
     private static TrackUiContainer trackUiContainer;
+    private static AlbumPanelController albumPanelController;
 
-    public static TrackPlayerHelper getTrackPlayerHelper() {
-        return trackPlayerHelper;
+    public static PlayerService getPlayerService() {
+        return playerService;
     }
 
     public static void setTrackPlayerHelper() {
-        AccesController.trackPlayerHelper = new TrackPlayerHelper();
+        AccesController.playerService = new PlayerService();
     }
 
     public static TrackUiContainer getTrackUiContainer() {
@@ -22,5 +23,13 @@ public class AccesController {
 
     public static void setTrackUiContainer(TrackUiContainer trackUiContainer) {
         AccesController.trackUiContainer = trackUiContainer;
+    }
+
+    public static void setAlbumPanelController(AlbumPanelController albumPanelController) {
+        AccesController.albumPanelController = albumPanelController;
+    }
+
+    public static AlbumPanelController getAlbumPanelController() {
+        return albumPanelController;
     }
 }

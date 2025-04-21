@@ -43,10 +43,7 @@
       </VBox>
       <ScrollPane styleClass="custom-scrollpane">
          <content>
-            <VBox fx:id="trackListVBox">
-               <fx:include source="album_item_panel.fxml" />
-               <fx:include source="album_item_panel.fxml" />
-            </VBox>
+            <VBox fx:id="trackListVBox" />
          </content>
       </ScrollPane>
       <Label text="Label" />
