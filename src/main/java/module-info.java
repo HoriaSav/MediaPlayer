@@ -6,6 +6,7 @@ module MediaPlayer {
     requires javafx.media;
     requires jaudiotagger;
     requires java.logging;
+    requires java.sql;
 
     opens com to javafx.graphics, javafx.fxml;
     opens com.ui.controller to javafx.fxml;
