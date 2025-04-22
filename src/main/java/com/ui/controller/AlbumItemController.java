@@ -21,7 +21,7 @@ public class AlbumItemController {
     public void initialize() {
     }
 
-    public void setTrackItem(String trackName, String artist, String album, int duration, int trackNumber){
+    public void loadTrackItem(String trackName, String artist, String album, int duration, int trackNumber){
         trackNameLabel.setText(trackName);
         artistLabel.setText(artist);
         albumLabel.setText(album);

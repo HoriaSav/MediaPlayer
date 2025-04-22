@@ -1,4 +1,4 @@
-package com.app_core.utils;
+package com.util;
 
 import org.jaudiotagger.audio.AudioFile;
 import org.jaudiotagger.audio.AudioFileIO;
@@ -28,7 +28,7 @@ public class FileInfoExtractor {
     }
 
     public static String getArtistName(File file) throws CannotReadException, TagException, InvalidAudioFrameException, ReadOnlyFileException, IOException {
-        return getFileTag(file).getFirst(FieldKey.ALBUM);
+        return getFileTag(file).getFirst(FieldKey.ARTIST);
     }
 
     public static int getTrackDuration(File file) throws CannotReadException,

@@ -1,5 +1,6 @@
-package com.app_core.utils;
+package com.model;
 
+import com.util.FileInfoExtractor;
 import org.jaudiotagger.audio.exceptions.CannotReadException;
 import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
 import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
@@ -22,6 +23,7 @@ public class Folder {
         setFolder();
     }
 
+    //TODO: extract method in FolderService
     private void setFolder() {
         File[] files = folder.listFiles();
         if (files != null) {
@@ -45,6 +47,7 @@ public class Folder {
         }
     }
 
+    //TODO: extract method in FolderService
     private boolean isMusicFile(File file) {
         String name = file.getName().toLowerCase();
         return name.endsWith(".mp3") || name.endsWith(".wav")

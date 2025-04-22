@@ -1,6 +1,6 @@
 package com.ui.controller;
 
-import com.app_core.service.PlayerService;
+import com.service.PlayerService;
 import com.ui.controller.container.TrackUiContainer;
 
 

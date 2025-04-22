@@ -1,6 +1,4 @@
-package com.app_core.utils;
-
-import java.io.File;
+package com.model;
 
 public class Track {
     private String name;

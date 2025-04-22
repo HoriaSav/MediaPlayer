@@ -1,6 +1,6 @@
-package com.app_core.service;
+package com.service;
 
-import com.app_core.utils.Track;
+import com.model.Track;
 import com.ui.controller.AccesController;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;

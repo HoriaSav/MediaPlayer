@@ -1,6 +1,6 @@
 package com.ui.controller;
 
-import com.app_core.utils.Track;
+import com.model.Track;
 import com.ui.controller.container.TrackUiContainer;
 import com.ui.tools.FxmlFileOpener;
 import javafx.application.Platform;
@@ -17,6 +17,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 
 public class MainPanelController {
     @FXML
@@ -81,19 +82,22 @@ public class MainPanelController {
 
     public void loadFolder() {
         try {
+            AccesController.getAlbumPanelController().playlistNameLabel.setText(AccesController.getPlayerService().getFolderName());
+            List<Track> trackList = AccesController.getPlayerService().getCurrentFolderTracks();
+            AccesController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
             AccesController.getAlbumPanelController().trackListVBox.getChildren().clear();
-            for (Track track : AccesController.getPlayerService().getCurrentFolderTracks()) {
+            for (Track track : trackList) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/album_item_panel.fxml"));
                 Node itemNode = loader.load();
                 AlbumItemController albumItemController = loader.getController();
-                albumItemController.setTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
+                albumItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
                 albumItemController.getPlayTrackButton().setOnAction(_ -> {
                     selectTrack(track.getName());
                 });
                 AccesController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
             }
+        } catch (IOException e) {
         }
-        catch (IOException e){}
     }
 
     public void selectTrack(String trackName) {
@@ -134,6 +138,7 @@ public class MainPanelController {
             setCurrentPlaylist(button.getText());
         });
         playlistVBox.getChildren().add(button);
+        loadFolder();
     }
 
     public void setCurrentPlaylist(String playlistName) {

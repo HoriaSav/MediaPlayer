@@ -1,12 +1,10 @@
 package com.ui.controller.container;
 
-import com.app_core.utils.FileInfoExtractor;
-import com.app_core.utils.Track;
+import com.model.Track;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Slider;
-import java.io.File;
 import javafx.util.Duration;
 
 /**
@@ -247,11 +245,9 @@ public class TrackUiContainer {
     public void setTrackInfoInUI(Track track) {
         try {
             trackNameLabel.setText(track.getName());
-            albumNameLabel.setText(track.getAlbum());
             artistLabel.setText(track.getArtist());
         } catch (Exception e) {
             trackNameLabel.setText(track.getName());
-            albumNameLabel.setText("");
             artistLabel.setText("");
         }
     }

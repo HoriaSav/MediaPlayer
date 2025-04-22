@@ -1,7 +1,7 @@
-package com.app_core.service;
+package com.service;
 
-import com.app_core.utils.Folder;
-import com.app_core.utils.Track;
+import com.model.Folder;
+import com.model.Track;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
@@ -21,13 +21,15 @@ public class FolderService {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Select Music Folder");
         File selectedDirectory = directoryChooser.showDialog(new Stage());
-        
+
         if (selectedDirectory != null) {
             Folder folder = new Folder(selectedDirectory);
             folderList.add(folder);
-            if (currentFolder == null) {
-                currentFolder = folder;
-            }
+            System.out.println(folder.getFolderName());
+            currentFolder = folder;
+        }
+        else{
+            //TODO: throw exception to catch operation cancellation in UI
         }
     }
 
