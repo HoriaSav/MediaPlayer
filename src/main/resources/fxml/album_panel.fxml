@@ -34,9 +34,9 @@
             </HBox>
          </children>
       </VBox>
-      <ScrollPane styleClass="custom-scrollpane">
+      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="custom-scrollpane">
          <content>
-            <VBox fx:id="trackListVBox" />
+            <VBox fx:id="trackListVBox" maxWidth="1.7976931348623157E308" />
          </content>
       </ScrollPane>
       <Label fx:id="errorLabel" text="errorLabel" />

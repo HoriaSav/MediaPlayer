@@ -23,7 +23,7 @@ public class FxmlFileOpener {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
 
-            Scene scene = new Scene(fxmlLoader.load(), 900, 700);
+            Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

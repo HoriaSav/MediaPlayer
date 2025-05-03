@@ -1,7 +1,11 @@
 package com.service;
 
+import com.exception.MediaPlaybackException;
+import com.exception.TrackNotFoundException;
+import com.exception.ValidationException;
 import com.model.Track;
-import com.ui.controller.AccesController;
+import com.ui.controller.AccessController;
+import com.util.InputValidator;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,15 +18,17 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlayerService {
-    private FolderService folderService;
+    private final FolderService folderService;
     private MediaPlayer mediaPlayer;
     private Track currentTrack;
     private List<Track> playList;
     private int currentTrackIndex = -1;
+    private final AccessController accessController;
 
 
     public PlayerService() {
         this.folderService = new FolderService();
+        accessController = AccessController.getInstance();
     }
 
     public String getFolderName() {
@@ -34,42 +40,47 @@ public class PlayerService {
     }
 
 
-    public void playCurrentFolder(String trackName) {
+    public void playCurrentFolder(String trackName) throws MediaPlaybackException {
         playList = folderService.getCurrentFolderTracks();
-        if (trackName.isEmpty()) {
-            if (!playList.isEmpty()) {
-                currentTrackIndex = 0;
-                playTrackAtCurrentIndex();
-            }
+        if (playList.isEmpty()) {
+            throw new MediaPlaybackException("No tracks available in the current folder");
         }
-        else{
+
+        if (trackName.isEmpty()) {
+            currentTrackIndex = 0;
+            playTrackAtCurrentIndex();
+        } else {
+            boolean trackFound = false;
             for (Track track : playList) {
                 if (track.getName().equals(trackName)) {
                     currentTrackIndex = playList.indexOf(track);
                     playTrackAtCurrentIndex();
+                    trackFound = true;
                     break;
                 }
+            }
+            if (!trackFound) {
+                throw new TrackNotFoundException("Track not found: " + trackName);
             }
         }
     }
 
     public void playPauseTrack() {
-        if (currentTrack != null) {
-            if (mediaPlayer != null) {
-                if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
-                    mediaPlayer.pause();
-                    setPlayPauseButtonImage("/icons/play.png");
-                } else {
-                    mediaPlayer.play();
-                    setPlayPauseButtonImage("/icons/pause.png");
-                }
+        try {
+            InputValidator.validateMediaPlayerState(mediaPlayer, currentTrack);
+
+            if (mediaPlayer.getStatus() == MediaPlayer.Status.PLAYING) {
+                mediaPlayer.pause();
+                setPlayPauseButtonImage("/icons/play.png");
             } else {
-                //TODO: error handling
+                mediaPlayer.play();
+                setPlayPauseButtonImage("/icons/pause.png");
             }
-        } else {
-            //TODO: error handling
+        } catch (ValidationException e) {
+            throw new MediaPlaybackException("Cannot play/pause track", e);
         }
     }
+
     private void playTrackAtCurrentIndex() {
         if (currentTrackIndex >= 0 && currentTrackIndex < playList.size()) {
             currentTrack = playList.get(currentTrackIndex);
@@ -117,30 +128,31 @@ public class PlayerService {
 
     public void addFolder() {
         folderService.addMusicFolder();
-        //TODO: refresh UI
     }
 
     public List<Track> getCurrentFolderTracks() {
         return folderService.getCurrentFolderTracks();
     }
 
-    private void setMediaPlayer(String mediaPath) {
-        String uri = new File(mediaPath).toURI().toString();
-        Media media = new Media(uri);
+    private void setMediaPlayer(String mediaPath) throws MediaPlaybackException {
+        try {
+            String uri = new File(mediaPath).toURI().toString();
+            Media media = new Media(uri);
 
-        // Stop current media if something is already playing
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
+            if (mediaPlayer != null) {
+                mediaPlayer.stop();
+            }
+
+            mediaPlayer = new MediaPlayer(media);
+            setUpVolumeSlider(accessController.getTrackUiContainer().getVolumeSlider());
+
+            mediaPlayer.setOnReady(() -> {
+                setupSongProgressBinding(accessController.getTrackUiContainer().getTrackSlider());
+                setTrackInfoInUi();
+            });
+        } catch (Exception e) {
+            throw new MediaPlaybackException("Failed to initialize media player", e);
         }
-        mediaPlayer = new MediaPlayer(media);
-        System.out.println("Media loaded and ready to play.");
-
-        setUpVolumeSlider(AccesController.getTrackUiContainer().getVolumeSlider());
-
-        mediaPlayer.setOnReady(() -> {
-            setupSongProgressBinding(AccesController.getTrackUiContainer().getTrackSlider());
-            setTrackInfoInUi();
-        });
     }
 
     public void selectCurrentTrack(Track track) {
@@ -157,7 +169,7 @@ public class PlayerService {
         ImageView view = new ImageView(img);
         view.setFitWidth(30);  // optional: scale it
         view.setFitHeight(30);
-        AccesController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
+        accessController.getTrackUiContainer().getPlayPauseButton().setGraphic(view);
     }
 
     private Duration getDuration() {
@@ -209,8 +221,8 @@ public class PlayerService {
     }
 
     private void setTrackInfoInUi() {
-        AccesController.getTrackUiContainer().setTrackInfoInUI(currentTrack);
-        AccesController.getTrackUiContainer().getTrackSlider().setMax(getDuration().toSeconds());
-        AccesController.getTrackUiContainer().setTrackDurationLabel(getDuration());
+        accessController.getTrackUiContainer().setTrackInfoInUI(currentTrack);
+        accessController.getTrackUiContainer().getTrackSlider().setMax(getDuration().toSeconds());
+        accessController.getTrackUiContainer().setTrackDurationLabel(getDuration());
     }
 }
