@@ -6,7 +6,7 @@
 package com.repository.basicservice;
 
 import com.repository.AbstractPersistentObject;
-import com.repository.basicservice.BasicDBService;
+import com.repository.basicservice.interfaces.BasicDBService;
 import java.sql.Connection;
 import java.sql.SQLException;
 

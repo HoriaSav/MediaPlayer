@@ -1,0 +1,32 @@
+package com.repository.basicservice.interfaces;
+
+import com.repository.PDBGVersion;
+import com.repository.PersistentObject;
+
+import java.time.LocalDate;
+import java.util.List;
+
+@PDBGVersion
+public interface BasicDBService {
+    Artist createArtist(String name, String genre);
+
+    Album createAlbum(String name, Artist artist);
+
+    Playlist createPlaylist(String name);
+
+    Track createTrack(String name, int durationSec, String path, Album album);
+
+    PlaylistTrack createPlaylistTrack(Playlist playlist, Track track, int trackPlaylistNumber);
+
+    List<Artist> getArtists(String genre);
+
+    Artist getArtist(long id);
+
+    List<Album> getAlbums(String artistName);
+
+    Album getAlbum (long id);
+
+    long store(PersistentObject var1);
+
+    void close();
+}
