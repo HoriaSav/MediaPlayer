@@ -16,7 +16,7 @@ public class PlaylistImpl extends AbstractPersistentJDBCObject implements Playli
     private String name;
     private LocalDate creationDate;
 
-    protected PlaylistImpl(BasicDBService service, long id) {
+    public PlaylistImpl(BasicDBService service, long id) {
         super(service, id);
     }
 

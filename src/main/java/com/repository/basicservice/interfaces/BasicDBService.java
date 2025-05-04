@@ -26,6 +26,16 @@ public interface BasicDBService {
 
     Album getAlbum (long id);
 
+   List<Playlist> getPlaylists();
+
+   List<Track> getPlaylistTracks(Playlist playlist);
+
+   List<Track> getAlbumTracks(Album album);
+
+   List<Track> getArtistTracks(Artist artist);
+
+   List<Track> getLikedTracks();
+
     long store(PersistentObject var1);
 
     void close();

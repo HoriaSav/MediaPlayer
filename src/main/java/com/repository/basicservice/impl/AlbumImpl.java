@@ -14,7 +14,7 @@ public class AlbumImpl extends AbstractPersistentJDBCObject implements Album {
     private String name;
     private Artist artist;
 
-    protected AlbumImpl(BasicDBService service, long id) {
+    public AlbumImpl(BasicDBService service, long id) {
         super(service, id);
     }
 
