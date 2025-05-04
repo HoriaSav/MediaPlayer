@@ -1,16 +1,6 @@
 package com.model;
 
-import com.exception.AudioFileProcessingException;
-import com.exception.FolderOperationException;
-import com.exception.ValidationException;
-import com.util.FileInfoExtractor;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.tag.TagException;
-
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,7 +15,7 @@ public class Folder {
         this.musicFiles = new ArrayList<>();
     }
 
-    public void addMusicFile(Track track) throws ValidationException {
+    public void addMusicFile(Track track) {
         musicFiles.add(track);
     }
 

@@ -2,7 +2,6 @@ package com.service;
 
 import com.exception.MediaPlaybackException;
 import com.exception.TrackNotFoundException;
-import com.exception.ValidationException;
 import com.model.Track;
 import com.ui.controller.AccessController;
 import com.util.InputValidator;
@@ -76,7 +75,7 @@ public class PlayerService {
                 mediaPlayer.play();
                 setPlayPauseButtonImage("/icons/pause.png");
             }
-        } catch (ValidationException e) {
+        } catch (Exception e) {
             throw new MediaPlaybackException("Cannot play/pause track", e);
         }
     }

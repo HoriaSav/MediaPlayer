@@ -3,7 +3,6 @@ package com.service;
 import com.exception.AudioFileProcessingException;
 import com.exception.FolderOperationException;
 import com.exception.TrackNotFoundException;
-import com.exception.ValidationException;
 import com.model.Folder;
 import com.model.Track;
 import com.util.FileInfoExtractor;
@@ -40,7 +39,7 @@ public class FolderService {
                 setFolder(folder);
                 folderList.add(folder);
                 currentFolder = folder;
-            } catch (ValidationException e) {
+            } catch (Exception e) {
                 throw new FolderOperationException("Failed to create folder from directory: " + 
                 selectedDirectory.getPath(), e);
             }
@@ -49,7 +48,7 @@ public class FolderService {
         }
     }
 
-    private void setFolder(Folder folder) throws ValidationException {
+    private void setFolder(Folder folder) {
         File[] files = folder.getFolderFile().listFiles();
         if (files == null) {
             throw new FolderOperationException("Unable to list files in folder: " + folder.getFolderFile().getPath());
@@ -79,7 +78,7 @@ public class FolderService {
         try {
             Track track = new Track(name, artist, album, duration, path);
             folder.addMusicFile(track);
-        } catch (ValidationException e) {
+        } catch (Exception e) {
             throw new AudioFileProcessingException(
                     "Invalid track data in file: " + file.getName() + " " + e.getMessage());
         }
