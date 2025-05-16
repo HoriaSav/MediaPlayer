@@ -15,4 +15,6 @@ module MediaPlayer {
     opens com.model to javafx.fxml;
     opens com.service to javafx.fxml;
     opens com.util to javafx.fxml;
+
+    exports com.repository.basicservice;
 }

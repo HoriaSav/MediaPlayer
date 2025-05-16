@@ -1,5 +1,6 @@
-package com.repository.basicservice;
+package com.repository.basicservice.impl;
 
+import com.repository.basicservice.AbstractEntityTestCase;
 import com.repository.basicservice.interfaces.Artist;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +25,6 @@ public class ArtistTestCase extends AbstractEntityTestCase {
         if (failed) {
             Assertions.fail("Creating a Artist did work although name was '" + name + "' and with genre being valid!");
         }
-
     }
 
     @ParameterizedTest(

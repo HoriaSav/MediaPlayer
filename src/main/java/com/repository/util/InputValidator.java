@@ -1,8 +1,6 @@
 package com.repository.util;
 
-import com.model.Track;
 import com.repository.exception.ValidationException;
-import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
 
@@ -12,39 +10,19 @@ public class InputValidator {
     }
 
     public static void validateTrack(String name, String artist, String album, int duration, String path) {
-        validateTrackName(name);
-        validateArtist(artist);
-        validateAlbum(album);
+        validateStringName(name);
+        validateStringName(artist);
+        validateStringName(album);
         validateDuration(duration);
         validatePath(path);
     }
 
-    public static void validateTrackName(String name) {
+    public static void validateStringName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new ValidationException("Track name cannot be null or empty");
         }
         if (name.length() > 255) {  // Example of a reasonable limit
             throw new ValidationException("Track name exceeds maximum length (255 characters)");
-        }
-    }
-
-    public static void validateArtist(String artist) {
-        if (artist == null) {
-            throw new ValidationException("Artist cannot be null");
-        }
-        // Artist can be empty as some tracks might not have artist information
-        if (artist.length() > 255) {
-            throw new ValidationException("Artist name exceeds maximum length (255 characters)");
-        }
-    }
-
-    public static void validateAlbum(String album) {
-        if (album == null) {
-            throw new ValidationException("Album cannot be null");
-        }
-        // Album can be empty as some tracks might not be part of an album
-        if (album.length() > 255) {
-            throw new ValidationException("Album name exceeds maximum length (255 characters)");
         }
     }
 
