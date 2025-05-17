@@ -36,13 +36,13 @@ public class ArtistImpl extends AbstractPersistentJDBCObject implements Artist {
 
     @Override
     public void setName(String name) {
-        InputValidator.validateString(name);
+        InputValidator.validateStringName(name);
         this.name = name;
     }
 
     @Override
     public void setGenre(String genre) {
-        InputValidator.validateString(genre);
+        InputValidator.validateStringName(genre);
         this.genre = genre;
     }
 

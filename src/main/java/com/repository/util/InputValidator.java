@@ -59,10 +59,4 @@ public class InputValidator {
             throw new ValidationException("Cannot read folder: " + folder.getPath());
         }
     }
-
-    public static void validateString(String str) {
-        if (str == null || str.trim().isEmpty()) {
-            throw new AssertionError("String cannot be null or empty");
-        }
-    }
 }

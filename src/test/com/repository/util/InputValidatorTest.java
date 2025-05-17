@@ -1,7 +1,6 @@
-package com.repository.basicservice.util;
+package com.repository.util;
 
 import com.repository.basicservice.AbstractEntityTestCase;
-import com.repository.basicservice.interfaces.Artist;
 import com.repository.exception.ValidationException;
 import com.repository.util.InputValidator;
 import org.junit.jupiter.api.DisplayName;
@@ -11,6 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -35,7 +35,7 @@ public class InputValidatorTest extends AbstractEntityTestCase {
         }
 
         @ParameterizedTest
-        @ValueSource(strings = { "", "   " })
+        @ValueSource(strings = {"", "   "})
         @DisplayName("should throw when name is empty or blank")
         void shouldThrow_WhenNameIsEmptyOrBlank(String input) {
             assertThrows(ValidationException.class, () -> InputValidator.validateStringName(input));
@@ -109,5 +109,52 @@ public class InputValidatorTest extends AbstractEntityTestCase {
         }
     }
 
-    //TODO: must finish implementation of tests
+
+    @Nested
+    @DisplayName("validateFolder")
+    class ValidateFolderTests {
+
+        @Test
+        @DisplayName("should pass when folder exists and is readable")
+        void shouldPass_WhenFolderIsValid(@TempDir Path tempDir) {
+            File folder = tempDir.toFile();
+            assertDoesNotThrow(() -> InputValidator.validateFolder(folder));
+        }
+
+        @Test
+        @DisplayName("should throw when folder is null")
+        void shouldThrow_WhenFolderIsNull() {
+            assertThrows(ValidationException.class, () -> InputValidator.validateFolder(null));
+        }
+
+        @Test
+        @DisplayName("should throw when folder does not exist")
+        void shouldThrow_WhenFolderDoesNotExist(@TempDir Path tempDir) {
+            File nonexistent = tempDir.resolve("ghost").toFile();
+            assertFalse(nonexistent.exists());
+            assertThrows(ValidationException.class, () -> InputValidator.validateFolder(nonexistent));
+        }
+
+        @Test
+        @DisplayName("should throw when path is a file, not a folder")
+        void shouldThrow_WhenPathIsFile(@TempDir Path tempDir) throws IOException {
+            File file = tempDir.resolve("file.txt").toFile();
+            assertTrue(file.createNewFile()); // Create file
+            assertTrue(file.isFile());
+            assertThrows(ValidationException.class, () -> InputValidator.validateFolder(file));
+        }
+
+        @Test
+        @DisplayName("should throw when folder is not readable (if possible)")
+        void shouldThrow_WhenFolderIsNotReadable(@TempDir Path tempDir) {
+            File folder = tempDir.toFile();
+            boolean changed = folder.setReadable(false);
+            if (changed && !folder.canRead()) {
+                assertThrows(ValidationException.class, () -> InputValidator.validateFolder(folder));
+            } else {
+                // Some OS (Windows) won't let you turn off read permission for current user
+                System.out.println("Skipping unreadable folder test (not supported on this OS)");
+            }
+        }
+    }
 }

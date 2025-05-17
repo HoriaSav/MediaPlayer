@@ -17,4 +17,8 @@ module MediaPlayer {
     opens com.util to javafx.fxml;
 
     exports com.repository.basicservice;
+    exports com.repository.basicservice.interfaces;
+    exports com.repository.exception;
+    exports com.repository.schema;
+    exports com.repository;
 }
