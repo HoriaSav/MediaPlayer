@@ -1,0 +1,44 @@
+.user_name{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#closeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: red;
+    -fx-border-width: 0;
+}
+
+#closeButton:hover{
+    -fx-background-color: darkgrey;
+}
+
+#toggleMaximizeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: yellow;
+    -fx-border-width: 0;
+
+}
+
+#toggleMaximizeButton:hover{
+    -fx-background-color: darkgrey;
+}
+
+#minimizeButton{
+    -fx-background-color: transparent;
+    -fx-text-fill: green;
+    -fx-border-width: 0;
+}
+
+#minimizeButton:hover{
+    -fx-background-color: darkgrey;
+}
+
+.bar_hBox{
+    -fx-background-color: grey;
+    -fx-border-color: black;
+}
+
+.compartment_hBox{
+    -fx-background-color: transparent;
+}
