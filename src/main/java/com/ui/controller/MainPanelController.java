@@ -22,66 +22,19 @@ import java.util.List;
 import static javafx.geometry.Pos.CENTER_LEFT;
 
 public class MainPanelController {
-    @FXML
-    public Slider volumeSlider;
-    @FXML
-    public Slider trackSlider;
 
     @FXML
     public StackPane stackPane;
 
     @FXML
-    public Label trackNameLabel;
-    @FXML
-    public Label albumLabel;
-    @FXML
-    public Label artistLabel;
-    @FXML
-    public Label trackDurationLabel;
-    @FXML
-    public Label volumeLabel;
-
-    @FXML
-    public Button playPauseButton;
-    @FXML
-    public Button muteButton;
-
-    @FXML
-    public ProgressBar trackProgressbar;
-    @FXML
-    public ProgressBar volumeProgressBar;
-
-    @FXML
     public VBox playlistVBox;
 
-    private static TrackUiContainer trackUiContainer;
     private AccessController accessController;
 
     public void initialize() {
         accessController = AccessController.getInstance();
         accessController.setTrackPlayerHelper();
         FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
-        trackUiContainer = setTrackUiContainer();
-        accessController.setTrackUiContainer(trackUiContainer);
-    }
-
-    @FXML
-    public void skipTrack() {
-        if (accessController.getPlayerService().hasNextTrack()) {
-            accessController.getPlayerService().playNextTrack();
-        }
-    }
-
-    @FXML
-    public void goBackTrack() {
-        if (accessController.getPlayerService().hasPreviousTrack()) {
-            accessController.getPlayerService().playPreviousTrack();
-        }
-    }
-
-    @FXML
-    public void playPauseTrack() {
-        accessController.getPlayerService().playPauseTrack();
     }
 
     public void loadFolder() {
@@ -108,10 +61,6 @@ public class MainPanelController {
     }
 
     @FXML
-    public void muteUnmute() {
-    }
-
-    @FXML
     public void openExplorePanel() {
     }
 
@@ -127,9 +76,9 @@ public class MainPanelController {
     public void openSettingsPanel() {
     }
 
-    @FXML
-    public void openPlaylistPanel() {
-    }
+//    @FXML
+//    public void openPlaylistPanel() {
+//    }
 
     @FXML
     public void addNewPlaylist() {
@@ -170,27 +119,5 @@ public class MainPanelController {
     private void toggleMaximize(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
-    }
-
-    private TrackUiContainer setTrackUiContainer() {
-        TrackUiContainer trackUiContainer = new TrackUiContainer();
-        trackUiContainer.setTrackNameLabel(trackNameLabel);
-        trackUiContainer.setArtistLabel(artistLabel);
-        trackUiContainer.setAlbumNameLabel(albumLabel);
-        trackUiContainer.setTrackDurationLabel(trackDurationLabel);
-        trackUiContainer.setVolumeLabel(volumeLabel);
-
-        trackUiContainer.setMuteButton(muteButton);
-        trackUiContainer.setPlayPauseButton(playPauseButton);
-
-        trackUiContainer.setTrackSlider(trackSlider);
-        trackUiContainer.setVolumeSlider(volumeSlider);
-
-        trackUiContainer.setTrackProgressBar(trackProgressbar);
-        trackUiContainer.setVolumeProgressBar(volumeProgressBar);
-
-        trackUiContainer.setProgressBarsInSync();
-
-        return trackUiContainer;
     }
 }
