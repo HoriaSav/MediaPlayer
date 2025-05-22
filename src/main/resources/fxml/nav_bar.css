@@ -1,5 +1,5 @@
 .nav_bar_track_title_label{
-    -fx-font-size: 15px;
+    -fx-font-size: 20px;
     -fx-font-weight: bold;
 }
 
@@ -8,7 +8,7 @@
     -fx-text-fill: black;
 }
 .nav_bar_title_hbox{
-    -fx-padding: 15 0 0 5px;
+    -fx-padding: 5 0 0 5px;
 }
 
 .nav_bar_main_control_vBox{
