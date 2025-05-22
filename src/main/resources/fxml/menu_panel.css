@@ -1,0 +1,32 @@
+.sublist_title{
+    -fx-padding: 10 0 0 0px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.button{
+    -fx-background-color: darkgrey;
+    -fx-font-size: 15px;
+    -fx-margin: 0 5 0 5px;
+    -fx-background-radius: 15px;
+    -fx-border-color: black;
+    -fx-border-radius: 15px;
+}
+
+.scroll-pane{
+    -fx-background-color: grey;
+}
+
+.scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.vbox{
+    -fx-background-color: transparent;
+    -fx-spacing: 5px;
+}
+
+.menu_panel_vbox{
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10px;
+}

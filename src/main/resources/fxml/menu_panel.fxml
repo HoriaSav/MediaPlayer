@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="scroll-pane" stylesheets="@menu_panel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MenuPanelController">
+    <VBox maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" styleClass="menu_panel_vbox" VBox.vgrow="ALWAYS">
+        <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="vbox" VBox.vgrow="ALWAYS">
+            <Label styleClass="sublist_title" stylesheets="@menu_panel.css" text="Menu" />
+            <Button maxWidth="1.7976931348623157E308" stylesheets="@menu_panel.css" text="Explore">
+            </Button>
+            <Button maxWidth="1.7976931348623157E308" text="Genres">
+            </Button>
+            <Button maxWidth="1.7976931348623157E308" text="Artists">
+            </Button>
+            <Button maxWidth="1.7976931348623157E308" text="Albums">
+            </Button>
+            <Button maxWidth="1.7976931348623157E308" text="Settings">
+            </Button>
+        </VBox>
+        <VBox fx:id="playlistVBox" maxHeight="1.7976931348623157E308" maxWidth="200.0" styleClass="vbox" VBox.vgrow="ALWAYS">
+            <Label styleClass="sublist_title" stylesheets="@menu_panel.css" text="Playlists" />
+            <Button maxWidth="1.7976931348623157E308" onAction="#addNewPlaylist" text="New Playlist">
+            </Button>
+        </VBox>
+    </VBox>
+</ScrollPane>

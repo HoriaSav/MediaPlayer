@@ -17,7 +17,7 @@
 }
 
 .nav_bar_track_control_button{
-    -fx-background-color: grey;
+    -fx-background-color: darkgrey;
     -fx-border-radius: 100px;
     -fx-border-color: black;
     -fx-background-radius: 100px;
@@ -26,7 +26,7 @@
 }
 
 .nav_bar_mute_button{
-    -fx-background-color: grey;
+    -fx-background-color: darkgrey;
     -fx-border-radius: 100px;
     -fx-border-color: black;
     -fx-background-radius: 100px;
@@ -35,7 +35,8 @@
 }
 
 .nav_bar_hBox{
-    -fx-background-color: darkgrey;
+    -fx-background-color: grey;
+    -fx-border-color: black;
 }
 
 .nav_bar_progress_bar{
