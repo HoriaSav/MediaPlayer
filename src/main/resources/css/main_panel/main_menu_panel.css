@@ -22,6 +22,24 @@
     -fx-background-color: transparent;
 }
 
+.scroll-pane .scroll-bar{
+    -fx-background-color: black;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.scroll-pane .track{
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .thumb{
+    -fx-background-color: darkgrey;
+}
+
+.scroll-pane .increment-button, .scroll-pane .decrement-button{
+    -fx-background-color: transparent;
+}
+
 .vbox{
     -fx-background-color: transparent;
     -fx-spacing: 5px;
