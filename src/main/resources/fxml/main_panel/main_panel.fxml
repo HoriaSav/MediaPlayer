@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../../css/main_panel/mediaPlayer_light.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.ui.controller.MainPanelController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@../../css/main_panel/mediaPlayer_light.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.ui.controller.main_panel.MainPanelController">
     <bottom>
         <fx:include source="main_nav_bar.fxml" />
     </bottom>

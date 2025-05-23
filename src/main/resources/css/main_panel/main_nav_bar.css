@@ -1,11 +1,12 @@
 .nav_bar_track_title_label{
     -fx-font-size: 20px;
     -fx-font-weight: bold;
+    -fx-text-fill: darkgrey;
 }
 
 .nav_bar_artist_title_label{
     -fx-font-size: 10px;
-    -fx-text-fill: black;
+    -fx-text-fill: grey;
 }
 .nav_bar_title_hbox{
     -fx-padding: 5 0 0 5px;
@@ -17,30 +18,29 @@
 }
 
 .nav_bar_track_control_button{
-    -fx-background-color: darkgrey;
+    -fx-background-color: transparent;
     -fx-border-radius: 100px;
-    -fx-border-color: black;
+    /*-fx-border-color: black;*/
     -fx-background-radius: 100px;
     -fx-pref-height: 55px;
     -fx-pref-width: 55px;
 }
 
 .nav_bar_mute_button{
-    -fx-background-color: darkgrey;
+    -fx-background-color: transparent;
     -fx-border-radius: 100px;
-    -fx-border-color: black;
+    /*-fx-border-color: black;*/
     -fx-background-radius: 100px;
     -fx-pref-height: 35px;
     -fx-pref-width: 30px;
 }
 
-.nav_bar_hBox{
-    -fx-background-color: grey;
-    -fx-border-color: black;
+.root_hBox{
+    -fx-background-color: #4d4d4d;
 }
 
 .nav_bar_progress_bar{
-    -fx-background-color: grey;
+    -fx-background-color: transparent;
 }
 
 .nav_bar_progress_bar .track{

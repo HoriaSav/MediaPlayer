@@ -6,3 +6,13 @@
     -fx-background-color: #ff7777;
     -fx-background-radius: 20px;
 }
+
+.button{
+    -fx-background-radius: 50px;
+    -fx-background-color: transparent;
+}
+
+.button:pressed{
+    -fx-background-color: white;
+    -fx-background-size: 50%;
+}

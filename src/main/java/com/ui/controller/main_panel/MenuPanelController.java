@@ -1,6 +1,8 @@
-package com.ui.controller;
+package com.ui.controller.main_panel;
 
 import com.model.Track;
+import com.ui.controller.AccessController;
+import com.ui.controller.AlbumItemController;
 import com.ui.tools.FxmlFileOpener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +61,7 @@ public class MenuPanelController {
     }
 
     public void setCurrentPlaylist(String playlistName) {
-
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "playlist_panel.fxml");
         accessController.getPlayerService().setCurrentFolder(playlistName);
         loadFolder();
     }

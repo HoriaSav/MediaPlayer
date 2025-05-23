@@ -1,42 +1,44 @@
 .user_name{
     -fx-font-size: 15px;
     -fx-font-weight: bold;
+    -fx-text-fill: darkgrey;
 }
 
 #closeButton{
     -fx-background-color: transparent;
-    -fx-text-fill: red;
+    -fx-text-fill: white;
     -fx-border-width: 0;
+    -fx-font-size: 15px;
 }
 
 #closeButton:hover{
-    -fx-background-color: darkgrey;
+    -fx-background-color: #FF4444;
 }
 
 #toggleMaximizeButton{
     -fx-background-color: transparent;
-    -fx-text-fill: yellow;
+    -fx-text-fill: white;
     -fx-border-width: 0;
-
+    -fx-font-size: 15px;
 }
 
 #toggleMaximizeButton:hover{
-    -fx-background-color: darkgrey;
+    -fx-background-color: grey;
 }
 
 #minimizeButton{
     -fx-background-color: transparent;
-    -fx-text-fill: green;
+    -fx-text-fill: white;
     -fx-border-width: 0;
+    -fx-font-size: 15px;
 }
 
 #minimizeButton:hover{
-    -fx-background-color: darkgrey;
+    -fx-background-color: grey;
 }
 
-.bar_hBox{
-    -fx-background-color: grey;
-    -fx-border-color: black;
+.root_hBox{
+    -fx-background-color: #4d4d4d;
 }
 
 .compartment_hBox{
