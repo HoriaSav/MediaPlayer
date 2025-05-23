@@ -23,5 +23,4 @@
    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_track_scroll_pane" vbarPolicy="ALWAYS">
       <VBox fx:id="trackListVBox" maxWidth="1.7976931348623157E308" styleClass="playlist_track_vBox" />
    </ScrollPane>
-   <Label fx:id="errorLabel" text="errorLabel" />
 </VBox>

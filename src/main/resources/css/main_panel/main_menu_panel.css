@@ -13,31 +13,33 @@
     -fx-border-radius: 15px;
 }
 
-.scroll-pane{
+.root_scroll_pane{
     -fx-background-color: grey;
-    -fx-border-color: black;
 }
 
-.scroll-pane .viewport{
+.root_scroll_pane .viewport{
     -fx-background-color: transparent;
 }
 
-.scroll-pane .scroll-bar{
-    -fx-background-color: black;
+.root_scroll_pane .scroll-bar{
+    -fx-background-color: transparent;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
 }
 
-.scroll-pane .track{
+.root_scroll_pane .track{
     -fx-background-color: transparent;
 }
 
-.scroll-pane .thumb{
+.root_scroll_pane .thumb{
     -fx-background-color: darkgrey;
 }
 
-.scroll-pane .increment-button, .scroll-pane .decrement-button{
+.root_scroll_pane .increment-button, .root_scroll_pane .decrement-button{
     -fx-background-color: transparent;
+    -fx-opacity: 0;              /* fully transparent */
+    -fx-padding: 0;              /* remove size */
+    -fx-shape: "";
 }
 
 .vbox{

@@ -1,6 +1,8 @@
 .root_vBox{
     -fx-background-color: grey;
     -fx-padding: 10 10 10 10px;
+    -fx-border-color: black;
+    -fx-border-width: 0 0 0 1px;
 }
 
 .playlist_name{
@@ -14,16 +16,15 @@
 
 .playlist_track_scroll_pane{
     -fx-background-color: transparent;
-    -fx-border-color: black;
-    -fx-border-radius: 10px;
 }
 
 .playlist_track_scroll_pane .viewport{
-    -fx-background-color: transparent;
+    -fx-background-color: darkgrey;
+    -fx-background-radius: 20px;
 }
 
 .playlist_track_scroll_pane .scroll-bar{
-    -fx-background-color: black;
+    -fx-background-color: transparent;
     -fx-border-radius: 20px;
     -fx-background-radius: 20px;
 }
@@ -38,6 +39,9 @@
 
 .playlist_track_scroll_pane .increment-button, .playlist_track_scroll_pane .decrement-button{
     -fx-background-color: transparent;
+    -fx-opacity: 0;              /* fully transparent */
+    -fx-padding: 0;              /* remove size */
+    -fx-shape: "";
 }
 
 .playlist_track_vBox{

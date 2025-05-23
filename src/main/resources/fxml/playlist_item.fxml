@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumItemController">
+<GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" styleClass="grid-pane" stylesheets="@../css/playlist_item.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumItemController">
   <columnConstraints>
     <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="5.0" />
     <ColumnConstraints halignment="CENTER" hgrow="NEVER" percentWidth="10.0" />

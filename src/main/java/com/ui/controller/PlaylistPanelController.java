@@ -10,8 +10,6 @@ public class PlaylistPanelController {
     public Label playlistNameLabel;
     @FXML
     public Label playlistTracksNumberLabel;
-    @FXML
-    public Label errorLabel;
 
     public AccessController accessController;
 
