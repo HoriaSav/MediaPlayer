@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox spacing="10.0" styleClass="root_vBox" stylesheets="@playlist_panel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
+<VBox spacing="10.0" styleClass="root_vBox" stylesheets="@../css/playlist_panel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.PlaylistPanelController">
    <VBox>
-      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="playlist_icon_imageview">
+      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
          <Image url="@../icons/Im1.png" />
       </ImageView>
       <HBox>

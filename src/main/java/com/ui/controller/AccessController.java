@@ -10,7 +10,7 @@ public class AccessController {
     private static StackPane mainPanel;
     private static PlayerService playerService;
     private static TrackUiContainer trackUiContainer;
-    private static AlbumPanelController albumPanelController;
+    private static PlaylistPanelController playlistPanelController;
 
     private AccessController() {
     }
@@ -53,11 +53,11 @@ public class AccessController {
         AccessController.trackUiContainer = trackUiContainer;
     }
 
-    public void setAlbumPanelController(AlbumPanelController albumPanelController) {
-        AccessController.albumPanelController = albumPanelController;
+    public void setAlbumPanelController(PlaylistPanelController playlistPanelController) {
+        AccessController.playlistPanelController = playlistPanelController;
     }
 
-    public AlbumPanelController getAlbumPanelController() {
-        return albumPanelController;
+    public PlaylistPanelController getAlbumPanelController() {
+        return playlistPanelController;
     }
 }

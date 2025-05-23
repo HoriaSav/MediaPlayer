@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<HBox alignment="CENTER_LEFT" styleClass="nav_bar_hBox" stylesheets="@nav_bar.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.NavBarController">
+<HBox alignment="CENTER_LEFT" styleClass="nav_bar_hBox" stylesheets="@../../css/main_panel/main_nav_bar.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.NavBarController">
     <VBox spacing="5.0" HBox.hgrow="SOMETIMES">
         <StackPane styleClass="stackPane">
             <ProgressBar fx:id="trackProgressBar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" progress="0.0" styleClass="nav_bar_progress_bar" StackPane.alignment="CENTER" />
@@ -29,41 +29,41 @@
             </rowConstraints>
             <HBox alignment="CENTER_LEFT" maxWidth="1.7976931348623157E308" prefWidth="200.0" styleClass="nav_bar_main_control_vBox" GridPane.columnIndex="0">
                 <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@../icons/Im1.png" />
+                    <Image url="@../../icons/Im1.png" />
                 </ImageView>
-                <VBox maxWidth="1.7976931348623157E308" styleClass="nav_bar_title_hbox" stylesheets="@nav_bar.css" HBox.hgrow="ALWAYS">
+                <VBox maxWidth="1.7976931348623157E308" styleClass="nav_bar_title_hbox" stylesheets="@../../css/main_panel/main_nav_bar.css" HBox.hgrow="ALWAYS">
                     <HBox.margin>
                         <Insets />
                     </HBox.margin>
-                    <Label fx:id="trackNameLabel" maxWidth="1.7976931348623157E308" styleClass="nav_bar_track_title_label" stylesheets="@nav_bar.css" text="_track_" VBox.vgrow="ALWAYS" />
-                    <Label fx:id="artistLabel" styleClass="nav_bar_artist_title_label" stylesheets="@nav_bar.css" text="_artist_" />
+                    <Label fx:id="trackNameLabel" maxWidth="1.7976931348623157E308" styleClass="nav_bar_track_title_label" stylesheets="@../../css/main_panel/main_nav_bar.css" text="_track_" VBox.vgrow="ALWAYS" />
+                    <Label fx:id="artistLabel" styleClass="nav_bar_artist_title_label" stylesheets="@../../css/main_panel/main_nav_bar.css" text="_artist_" />
                 </VBox>
             <GridPane.margin>
                <Insets />
             </GridPane.margin>
             </HBox>
-            <HBox alignment="CENTER" styleClass="nav_bar_main_control_vBox" stylesheets="@nav_bar.css" GridPane.columnIndex="1">
-                <Button onAction="#goBackTrack" styleClass="nav_bar_track_control_button" stylesheets="@nav_bar.css">
+            <HBox alignment="CENTER" styleClass="nav_bar_main_control_vBox" stylesheets="@../../css/main_panel/main_nav_bar.css" GridPane.columnIndex="1">
+                <Button onAction="#goBackTrack" styleClass="nav_bar_track_control_button" stylesheets="@../../css/main_panel/main_nav_bar.css">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0">
-                            <Image url="@../icons/back.png" />
+                            <Image url="@../../icons/back.png" />
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="playPauseButton" onAction="#playPauseTrack" styleClass="nav_bar_track_control_button" stylesheets="@nav_bar.css">
+                <Button fx:id="playPauseButton" onAction="#playPauseTrack" styleClass="nav_bar_track_control_button" stylesheets="@../../css/main_panel/main_nav_bar.css">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0">
                             <image>
-                                <Image url="@../icons/play.png" />
+                                <Image url="@../../icons/play.png" />
                             </image>
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button onAction="#skipTrack" styleClass="nav_bar_track_control_button" stylesheets="@nav_bar.css">
+                <Button onAction="#skipTrack" styleClass="nav_bar_track_control_button" stylesheets="@../../css/main_panel/main_nav_bar.css">
                     <graphic>
                         <ImageView fitHeight="25.0" fitWidth="25.0">
                             <image>
-                                <Image url="@../icons/next.png" />
+                                <Image url="@../../icons/next.png" />
                             </image>
                         </ImageView>
                     </graphic>
@@ -72,14 +72,14 @@
             <VBox alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefWidth="200.0" styleClass="nav_bar_main_control_vBox" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.hgrow="NEVER" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                 <children>
                     <Label fx:id="trackDurationLabel" styleClass="nav_bar_artist_title_label" text="0:00" />
-                    <HBox alignment="CENTER_RIGHT" spacing="5.0" stylesheets="@nav_bar.css">
+                    <HBox alignment="CENTER_RIGHT" spacing="5.0" stylesheets="@../../css/main_panel/main_nav_bar.css">
                         <children>
                             <Label fx:id="volumeLabel" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="30.0" text="0%" />
-                            <Button fx:id="muteButton" graphicTextGap="0.0" onAction="#muteUnmute" styleClass="nav_bar_mute_button" stylesheets="@nav_bar.css">
+                            <Button fx:id="muteButton" graphicTextGap="0.0" onAction="#muteUnmute" styleClass="nav_bar_mute_button" stylesheets="@../../css/main_panel/main_nav_bar.css">
                                 <graphic>
                                     <ImageView fitHeight="20.0" fitWidth="20.0">
                                         <image>
-                                            <Image url="@../icons/volume_max.png" />
+                                            <Image url="@../../icons/volume_max.png" />
                                         </image>
                                     </ImageView>
                                 </graphic>

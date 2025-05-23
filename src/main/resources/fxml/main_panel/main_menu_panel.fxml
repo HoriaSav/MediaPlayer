@@ -5,11 +5,11 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" stylesheets="@menu_panel.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MenuPanelController">
+<ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="scroll-pane" stylesheets="@../../css/main_panel/main_menu_panel.css" vbarPolicy="ALWAYS" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MenuPanelController">
     <VBox styleClass="menu_panel_vbox" VBox.vgrow="ALWAYS">
         <VBox maxWidth="1.7976931348623157E308" styleClass="vbox" VBox.vgrow="ALWAYS">
-            <Label styleClass="sublist_title" stylesheets="@menu_panel.css" text="Menu" />
-            <Button maxWidth="1.7976931348623157E308" onAction="#openExplorePanel" stylesheets="@menu_panel.css" text="Explore">
+            <Label styleClass="sublist_title" stylesheets="@../../css/main_panel/main_menu_panel.css" text="Menu" />
+            <Button maxWidth="1.7976931348623157E308" onAction="#openExplorePanel" stylesheets="@../../css/main_panel/main_menu_panel.css" text="Explore">
             </Button>
             <Button maxWidth="1.7976931348623157E308" text="Genres">
             </Button>
@@ -21,7 +21,7 @@
             </Button>
         </VBox>
         <VBox fx:id="playlistVBox" maxHeight="1.7976931348623157E308" maxWidth="200.0" styleClass="vbox" VBox.vgrow="ALWAYS">
-            <Label styleClass="sublist_title" stylesheets="@menu_panel.css" text="Playlists" />
+            <Label styleClass="sublist_title" stylesheets="@../../css/main_panel/main_menu_panel.css" text="Playlists" />
             <Button maxWidth="1.7976931348623157E308" onAction="#addNewPlaylist" text="New Playlist">
             </Button>
         </VBox>

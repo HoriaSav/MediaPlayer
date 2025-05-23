@@ -71,7 +71,7 @@ public class MenuPanelController {
             accessController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
             accessController.getAlbumPanelController().trackListVBox.getChildren().clear();
             for (Track track : trackList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/album_item_panel.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playlist_item.fxml"));
                 Node itemNode = loader.load();
                 AlbumItemController albumItemController = loader.getController();
                 albumItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
