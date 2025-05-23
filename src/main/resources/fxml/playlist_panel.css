@@ -1,0 +1,28 @@
+.root_vBox{
+    -fx-background-color: grey;
+    -fx-padding: 10 10 10 10px;
+}
+
+.playlist_name{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.playlist_item_count{
+    -fx-font-size: 10px;
+}
+
+.playlist_track_scroll_pane{
+    -fx-background-color: transparent;
+    -fx-spacing: 5px;
+    -fx-border-color: black;
+    -fx-border-radius: 10px;
+}
+
+.playlist_track_scroll_pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.playlist_track_vBox{
+    -fx-background-color: transparent;
+}

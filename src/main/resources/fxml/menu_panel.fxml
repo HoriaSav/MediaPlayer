@@ -9,7 +9,7 @@
     <VBox styleClass="menu_panel_vbox" VBox.vgrow="ALWAYS">
         <VBox maxWidth="1.7976931348623157E308" styleClass="vbox" VBox.vgrow="ALWAYS">
             <Label styleClass="sublist_title" stylesheets="@menu_panel.css" text="Menu" />
-            <Button maxWidth="1.7976931348623157E308" stylesheets="@menu_panel.css" text="Explore">
+            <Button maxWidth="1.7976931348623157E308" onAction="#openExplorePanel" stylesheets="@menu_panel.css" text="Explore">
             </Button>
             <Button maxWidth="1.7976931348623157E308" text="Genres">
             </Button>

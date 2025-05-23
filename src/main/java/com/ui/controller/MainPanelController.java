@@ -14,6 +14,7 @@ public class MainPanelController {
     public void initialize() {
         accessController = AccessController.getInstance();
         accessController.setTrackPlayerHelper();
-        FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
+        accessController.initializeStackPane(stackPane);
+        FxmlFileOpener.loadFrame(stackPane, "playlist_panel.fxml");
     }
 }

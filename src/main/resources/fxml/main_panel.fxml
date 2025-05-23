@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@mediaPlayer_light.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.MainPanelController">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="900.0" stylesheets="@mediaPlayer_light.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="com.ui.controller.MainPanelController">
     <bottom>
         <fx:include source="nav_bar.fxml" />
     </bottom>
@@ -11,12 +11,9 @@
         <fx:include source="menu_panel.fxml" />
     </left>
    <center>
-      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" styleClass="stackPane" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets bottom="5.0" right="10.0" />
-         </padding></StackPane>
+      <StackPane fx:id="stackPane" prefHeight="150.0" prefWidth="200.0" styleClass="stackPane" BorderPane.alignment="CENTER" />
    </center>
    <top>
-      <fx:include source="top_bar.fxml"/>
+      <fx:include source="top_bar.fxml" />
    </top>
 </BorderPane>

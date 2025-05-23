@@ -1,6 +1,7 @@
 package com.ui.controller;
 
 import com.model.Track;
+import com.ui.tools.FxmlFileOpener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -24,6 +25,7 @@ public class MenuPanelController {
 
     @FXML
     public void openExplorePanel() {
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "explore_page.fxml");
     }
 
     @FXML
@@ -49,7 +51,7 @@ public class MenuPanelController {
             button.setAlignment(CENTER_LEFT);
             button.setOnAction(_ -> setCurrentPlaylist(button.getText()));
             playlistVBox.getChildren().add(button);
-            loadFolder();
+//            loadFolder();
         }
         catch (Exception e){
             System.out.println(e.getMessage());

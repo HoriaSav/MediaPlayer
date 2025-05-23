@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="10.0" styleClass="root_vBox" stylesheets="@playlist_panel.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.AlbumPanelController">
+   <VBox>
+      <ImageView fitHeight="80.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="playlist_icon_imageview">
+         <Image url="@../icons/Im1.png" />
+      </ImageView>
+      <HBox>
+         <Label fx:id="playlistNameLabel" styleClass="playlist_name" text="_name_">
+         </Label>
+      </HBox>
+      <HBox>
+         <Label fx:id="playlistTracksNumberLabel" styleClass="playlist_item_count" text="Tracks: 0" />
+      </HBox>
+   </VBox>
+   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_track_scroll_pane" vbarPolicy="ALWAYS">
+      <VBox fx:id="trackListVBox" maxWidth="1.7976931348623157E308" styleClass="playlist_track_vBox" />
+   </ScrollPane>
+   <Label fx:id="errorLabel" text="errorLabel" />
+</VBox>
