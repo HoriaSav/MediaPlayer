@@ -150,21 +150,25 @@ public class BasicDBServiceImpl implements BasicDBService {
         return playlists;
     }
 
+    private void getTracksPs(List<Track> tracks, PreparedStatement ps, long objectID) throws SQLException {
+        ps.setLong(1, objectID);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            TrackImpl track = new TrackImpl(this, rs.getLong("id"));
+            track.setName(rs.getString("name"));
+            track.setAlbum(getAlbum(rs.getLong("album")));
+            track.setDurationSec(rs.getInt("duration"));
+            track.setPath(rs.getString("path"));
+            track.setIsFavorite(rs.getBoolean("isfavorite"));
+            tracks.add(track);
+        }
+    }
+
     @Override
     public List<Track> getPlaylistTracks(Playlist playlist) {
         List<Track> tracks = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("")) {
-            ps.setLong(1, playlist.getObjectID());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                TrackImpl track = new TrackImpl(this, rs.getLong("id"));
-                track.setName(rs.getString("name"));
-                track.setAlbum(getAlbum(rs.getLong("album")));
-                track.setDurationSec(rs.getInt("duration"));
-                track.setPath(rs.getString("path"));
-                track.setIsFavorite(rs.getBoolean("isfavorite"));
-                tracks.add(track);
-            }
+            getTracksPs(tracks, ps, playlist.getObjectID());
         } catch (SQLException e) {
             throw new FetchException("Failed to get tracks for playlist " + playlist.getName());
         }
@@ -175,17 +179,7 @@ public class BasicDBServiceImpl implements BasicDBService {
     public List<Track> getAlbumTracks(Album album) {
         List<Track> tracks = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track WHERE album_id = ?")) {
-            ps.setLong(1, album.getObjectID());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                TrackImpl track = new TrackImpl(this, rs.getLong("id"));
-                track.setName(rs.getString("name"));
-                track.setAlbum(getAlbum(rs.getLong("album")));
-                track.setDurationSec(rs.getInt("duration"));
-                track.setPath(rs.getString("path"));
-                track.setIsFavorite(rs.getBoolean("isfavorite"));
-                tracks.add(track);
-            }
+            getTracksPs(tracks, ps, album.getObjectID());
         } catch (SQLException e) {
             throw new FetchException("Failed to get tracks for album " + album.getName());
         }
@@ -195,18 +189,8 @@ public class BasicDBServiceImpl implements BasicDBService {
     @Override
     public List<Track> getArtistTracks(Artist artist) {
         List<Track> tracks = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("")) {//TODO: Check sql query for all methods
-            ps.setLong(1, artist.getObjectID());
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                TrackImpl track = new TrackImpl(this, rs.getLong("id"));
-                track.setName(rs.getString("name"));
-                track.setAlbum(getAlbum(rs.getLong("album")));
-                track.setDurationSec(rs.getInt("duration"));
-                track.setPath(rs.getString("path"));
-                track.setIsFavorite(rs.getBoolean("isfavorite"));
-                tracks.add(track);
-            }
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track t, album al, artist ar where al.artist_id = ar.id and t.album_id = al.id and ar.id = ?")) {
+            getTracksPs(tracks, ps, artist.getObjectID());
         } catch (SQLException e) {
             throw new FetchException("Failed to get tracks for artist " + artist.getName());
         }

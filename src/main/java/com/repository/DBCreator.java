@@ -30,9 +30,8 @@ public final class DBCreator implements SchemaGenerator {
      * Main method used to initiate the database schema creation process.
      *
      * @param args command-line arguments (not used)
-     * @throws Exception if an error occurs during schema creation
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         if (new DBCreator().createDatabase(JDBC_URL, DB_USER, DB_PASSWORD)) {
             System.out.println("Database created successfully");
         } else {
@@ -60,37 +59,24 @@ public final class DBCreator implements SchemaGenerator {
             throw new IllegalArgumentException("password must not be null or empty");
         }
 
-        Connection connection = null;
-        Statement statement = null;
-
-        try {
-            connection = createConnection(jdbcUrl, user, password);
-
-            statement = connection.createStatement();
-
-            List<String> ddlStatements = SchemaParser.parseSchema("schema.sql");
-
-            for (String ddl : ddlStatements) {
-                statement.execute(ddl);
-            }
-
-            System.out.println("Database schema created successfully!");
-            return true;
-        } catch (ClassNotFoundException | SQLException e) {
-            throw new ServiceException("Failed to create database", e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
+        try (Connection connection = createConnection(jdbcUrl, user, password); Statement statement = connection.createStatement()) {
             try {
-                if (statement != null) {
-                    statement.close();
+
+                List<String> ddlStatements = SchemaParser.parseSchema("schema.sql");
+
+                for (String ddl : ddlStatements) {
+                    statement.execute(ddl);
                 }
-                if (connection != null) {
-                    connection.close();
-                }
+
+                System.out.println("Database schema created successfully!");
+                return true;
             } catch (SQLException e) {
-                throw new ServiceException("Failed to close connection", e);
+                throw new ServiceException("Failed to create database", e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+        } catch (SQLException | ClassNotFoundException e) {
+            throw new ServiceException("Failed to close connection", e);
         }
     }
 
@@ -104,7 +90,7 @@ public final class DBCreator implements SchemaGenerator {
      * @throws ClassNotFoundException if the PostgreSQL driver class is not found
      * @throws SQLException if a database access error occurs
      */
-    protected Connection createConnection(String jdbcURL, String user, String password)
+    private Connection createConnection(String jdbcURL, String user, String password)
             throws ClassNotFoundException, SQLException {
         Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection(jdbcURL, user, password);

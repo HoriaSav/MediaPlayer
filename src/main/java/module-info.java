@@ -8,6 +8,7 @@ module MediaPlayer {
     requires java.logging;
     requires java.sql;
     requires com.zaxxer.hikari;
+    requires org.postgresql.jdbc;
 
     opens com to javafx.graphics, javafx.fxml;
     opens com.ui.controller to javafx.fxml;
