@@ -19,6 +19,8 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+import static javafx.geometry.Pos.CENTER_LEFT;
+
 public class MainPanelController {
     @FXML
     public Slider volumeSlider;
@@ -53,55 +55,56 @@ public class MainPanelController {
     public VBox playlistVBox;
 
     private static TrackUiContainer trackUiContainer;
+    private AccessController accessController;
 
     public void initialize() {
-        AccesController.setTrackPlayerHelper();
+        accessController = AccessController.getInstance();
+        accessController.setTrackPlayerHelper();
         FxmlFileOpener.loadFrame(stackPane, "album_panel.fxml");
         trackUiContainer = setTrackUiContainer();
-        AccesController.setTrackUiContainer(trackUiContainer);
+        accessController.setTrackUiContainer(trackUiContainer);
     }
 
     @FXML
     public void skipTrack() {
-        if (AccesController.getPlayerService().hasNextTrack()) {
-            AccesController.getPlayerService().playNextTrack();
+        if (accessController.getPlayerService().hasNextTrack()) {
+            accessController.getPlayerService().playNextTrack();
         }
     }
 
     @FXML
     public void goBackTrack() {
-        if (AccesController.getPlayerService().hasPreviousTrack()) {
-            AccesController.getPlayerService().playPreviousTrack();
+        if (accessController.getPlayerService().hasPreviousTrack()) {
+            accessController.getPlayerService().playPreviousTrack();
         }
     }
 
     @FXML
     public void playPauseTrack() {
-        AccesController.getPlayerService().playPauseTrack();
+        accessController.getPlayerService().playPauseTrack();
     }
 
     public void loadFolder() {
         try {
-            AccesController.getAlbumPanelController().playlistNameLabel.setText(AccesController.getPlayerService().getFolderName());
-            List<Track> trackList = AccesController.getPlayerService().getCurrentFolderTracks();
-            AccesController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
-            AccesController.getAlbumPanelController().trackListVBox.getChildren().clear();
+            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getPlayerService().getFolderName());
+            List<Track> trackList = accessController.getPlayerService().getCurrentFolderTracks();
+            accessController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
+            accessController.getAlbumPanelController().trackListVBox.getChildren().clear();
             for (Track track : trackList) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/album_item_panel.fxml"));
                 Node itemNode = loader.load();
                 AlbumItemController albumItemController = loader.getController();
                 albumItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
-                albumItemController.getPlayTrackButton().setOnAction(_ -> {
-                    selectTrack(track.getName());
-                });
-                AccesController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
+                albumItemController.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
+                accessController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
             }
         } catch (IOException e) {
+            //TODO exception handling
         }
     }
 
     public void selectTrack(String trackName) {
-        AccesController.getPlayerService().playCurrentFolder(trackName);
+        accessController.getPlayerService().playCurrentFolder(trackName);
     }
 
     @FXML
@@ -130,20 +133,25 @@ public class MainPanelController {
 
     @FXML
     public void addNewPlaylist() {
-        AccesController.getPlayerService().addFolder();
-        Button button = new Button();
-        String folderName = AccesController.getPlayerService().getFolderName();
-        button.setText(folderName);
-        button.setOnAction(_ -> {
-            setCurrentPlaylist(button.getText());
-        });
-        playlistVBox.getChildren().add(button);
-        loadFolder();
+        try {
+            accessController.getPlayerService().addFolder();
+            Button button = new Button();
+            String folderName = accessController.getPlayerService().getFolderName();
+            button.setText(folderName);
+            button.setMaxWidth(Double.MAX_VALUE);
+            button.setAlignment(CENTER_LEFT);
+            button.setOnAction(_ -> setCurrentPlaylist(button.getText()));
+            playlistVBox.getChildren().add(button);
+            loadFolder();
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     public void setCurrentPlaylist(String playlistName) {
 
-        AccesController.getPlayerService().setCurrentFolder(playlistName);
+        accessController.getPlayerService().setCurrentFolder(playlistName);
         loadFolder();
     }
 
@@ -162,10 +170,6 @@ public class MainPanelController {
     private void toggleMaximize(ActionEvent event) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setMaximized(!stage.isMaximized());
-    }
-
-    public TrackUiContainer getTrackUiContainer() {
-        return trackUiContainer;
     }
 
     private TrackUiContainer setTrackUiContainer() {

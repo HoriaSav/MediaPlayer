@@ -13,7 +13,10 @@ public class AlbumPanelController {
     @FXML
     public Label errorLabel;
 
+    public AccessController accessController;
+
     public void initialize() {
-        AccesController.setAlbumPanelController(this);
+        accessController = AccessController.getInstance();
+        accessController.setAlbumPanelController(this);
     }
 }

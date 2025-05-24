@@ -1,6 +1,9 @@
 package com.model;
 
+import com.util.InputValidator;
+
 public class Track {
+
     private String name;
     private String artist;
     private String album;
@@ -8,6 +11,7 @@ public class Track {
     private String path;
 
     public Track(String name, String artist, String album, int duration, String path){
+        InputValidator.validateTrack(name, artist, album, duration, path);
         setName(name);
         setArtist(artist);
         setAlbum(album);
@@ -32,18 +36,23 @@ public class Track {
     }
 
     public void setName(String name) {
+        InputValidator.validateTrackName(name);
         this.name = name;
     }
     public void setArtist(String artist) {
+        InputValidator.validateArtist(artist);
         this.artist = artist;
     }
     public void setAlbum(String album) {
+        InputValidator.validateAlbum(album);
         this.album = album;
     }
     public void setDuration(int duration) {
+        InputValidator.validateDuration(duration);
         this.duration = duration;
     }
     public void setPath(String path) {
+        InputValidator.validatePath(path);
         this.path = path;
     }
 }
