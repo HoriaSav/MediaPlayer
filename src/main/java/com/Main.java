@@ -14,7 +14,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) {
         disableLogging();
         FxmlFileOpener fxmlFileOpener = new FxmlFileOpener();
-        fxmlFileOpener.openFileOnAction("/fxml/main_panel.fxml");
+        fxmlFileOpener.openFileOnAction("/fxml/main_panel/main_panel.fxml");
     }
 
     public static void main(String[] args) {

@@ -1,0 +1,53 @@
+.sublist_title{
+    -fx-padding: 10 0 0 0px;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.button{
+    -fx-background-color: darkgrey;
+    -fx-font-size: 15px;
+    -fx-margin: 0 5 0 5px;
+    -fx-background-radius: 15px;
+    -fx-border-color: black;
+    -fx-border-radius: 15px;
+}
+
+.root_scroll_pane{
+    -fx-background-color: grey;
+}
+
+.root_scroll_pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.root_scroll_pane .scroll-bar{
+    -fx-background-color: transparent;
+    -fx-border-radius: 20px;
+    -fx-background-radius: 20px;
+}
+
+.root_scroll_pane .track{
+    -fx-background-color: transparent;
+}
+
+.root_scroll_pane .thumb{
+    -fx-background-color: darkgrey;
+}
+
+.root_scroll_pane .increment-button, .root_scroll_pane .decrement-button{
+    -fx-background-color: transparent;
+    -fx-opacity: 0;              /* fully transparent */
+    -fx-padding: 0;              /* remove size */
+    -fx-shape: "";
+}
+
+.vbox{
+    -fx-background-color: transparent;
+    -fx-spacing: 5px;
+}
+
+.menu_panel_vbox{
+    -fx-background-color: transparent;
+    -fx-padding: 10 10 10 10px;
+}

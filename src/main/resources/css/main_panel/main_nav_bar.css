@@ -1,0 +1,64 @@
+.nav_bar_track_title_label{
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: darkgrey;
+}
+
+.nav_bar_artist_title_label{
+    -fx-font-size: 10px;
+    -fx-text-fill: grey;
+}
+.nav_bar_title_hbox{
+    -fx-padding: 5 0 0 5px;
+}
+
+.nav_bar_main_control_vBox{
+    -fx-spacing: 5px;
+    -fx-padding: 5 5 5 5px;
+}
+
+.nav_bar_track_control_button{
+    -fx-background-color: transparent;
+    -fx-border-radius: 100px;
+    /*-fx-border-color: black;*/
+    -fx-background-radius: 100px;
+    -fx-pref-height: 55px;
+    -fx-pref-width: 55px;
+}
+
+.nav_bar_mute_button{
+    -fx-background-color: transparent;
+    -fx-border-radius: 100px;
+    /*-fx-border-color: black;*/
+    -fx-background-radius: 100px;
+    -fx-pref-height: 35px;
+    -fx-pref-width: 30px;
+}
+
+.root_hBox{
+    -fx-background-color: #4d4d4d;
+}
+
+.nav_bar_progress_bar{
+    -fx-background-color: transparent;
+}
+
+.nav_bar_progress_bar .track{
+    -fx-background-color: black;
+}
+
+.nav_bar_progress_bar .bar{
+    -fx-background-color: red;
+}
+
+.nav_bar_slider{
+    -fx-background-color: transparent;
+}
+
+.nav_bar_slider .track{
+    -fx-background-color: transparent;
+}
+
+.stackPane{
+    -fx-background-color: transparent;
+}

@@ -1,0 +1,9 @@
+.vBox{
+    -fx-background-color: grey;
+}
+
+.message_label{
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: darkred;
+}
