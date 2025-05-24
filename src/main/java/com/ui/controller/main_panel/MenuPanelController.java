@@ -2,7 +2,7 @@ package com.ui.controller.main_panel;
 
 import com.model.Track;
 import com.ui.controller.AccessController;
-import com.ui.controller.AlbumItemController;
+import com.ui.controller.PlaylistItemController;
 import com.ui.tools.FxmlFileOpener;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,15 +31,23 @@ public class MenuPanelController {
     }
 
     @FXML
+    public void openGenrePanel() {
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "genre_panel.fxml");
+    }
+
+    @FXML
     public void openArtistPanel() {
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "artists_panel.fxml");
     }
 
     @FXML
     public void openAlbumPanel() {
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "albums_panel.fxml");
     }
 
     @FXML
     public void openSettingsPanel() {
+        FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "settings_panel.fxml");
     }
 
     @FXML
@@ -75,9 +83,9 @@ public class MenuPanelController {
             for (Track track : trackList) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playlist_item.fxml"));
                 Node itemNode = loader.load();
-                AlbumItemController albumItemController = loader.getController();
-                albumItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
-                albumItemController.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
+                PlaylistItemController playlistItemController = loader.getController();
+                playlistItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
+                playlistItemController.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
                 accessController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
             }
         } catch (IOException e) {
