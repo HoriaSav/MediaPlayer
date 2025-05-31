@@ -1,6 +1,6 @@
 package com.ui.controller.main_panel;
 
-import com.model.Track;
+import com.repository.basicservice.interfaces.Track;
 import com.ui.controller.AccessController;
 import com.ui.controller.PlaylistItemController;
 import com.ui.tools.FxmlFileOpener;
@@ -53,38 +53,37 @@ public class MenuPanelController {
     @FXML
     public void addNewPlaylist() {
         try {
-            accessController.getPlayerService().addFolder();
+            accessController.getMusicLibraryService().addPlaylist();
             Button button = new Button();
-            String folderName = accessController.getPlayerService().getFolderName();
+            String folderName = accessController.getMusicLibraryService().getCurrentPlaylist().getName();
             button.setText(folderName);
             button.setMaxWidth(Double.MAX_VALUE);
             button.setAlignment(CENTER_LEFT);
             button.setOnAction(_ -> setCurrentPlaylist(button.getText()));
             playlistVBox.getChildren().add(button);
-//            loadFolder();
-        }
-        catch (Exception e){
-            System.out.println(e.getMessage());
+            loadFolder();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
     public void setCurrentPlaylist(String playlistName) {
         FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "playlist_panel.fxml");
-        accessController.getPlayerService().setCurrentFolder(playlistName);
+        accessController.getMusicLibraryService().setCurrentPlaylist(playlistName);
         loadFolder();
     }
 
     public void loadFolder() {
         try {
-            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getPlayerService().getFolderName());
-            List<Track> trackList = accessController.getPlayerService().getCurrentFolderTracks();
+            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getMusicLibraryService().getCurrentPlaylist().getName());
+            List<Track> trackList = accessController.getMusicLibraryService().getTracks();
             accessController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
             accessController.getAlbumPanelController().trackListVBox.getChildren().clear();
             for (Track track : trackList) {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playlist_item.fxml"));
                 Node itemNode = loader.load();
                 PlaylistItemController playlistItemController = loader.getController();
-                playlistItemController.loadTrackItem(track.getName(), track.getArtist(), track.getAlbum(), track.getDuration(), track.getDuration());
+                playlistItemController.loadTrackItem(track.getName(), track.getAlbum().getArtist().getName(), track.getAlbum().getName(), 0, track.getDurationSec());
                 playlistItemController.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
                 accessController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
             }
@@ -94,7 +93,7 @@ public class MenuPanelController {
     }
 
     public void selectTrack(String trackName) {
-        accessController.getPlayerService().playCurrentFolder(trackName);
+        accessController.getMusicLibraryService().playTrack(trackName);
     }
 
 }

@@ -6,6 +6,8 @@ import com.repository.basicservice.interfaces.*;
 import com.repository.exception.FetchException;
 import com.repository.exception.ServiceException;
 import com.repository.exception.StoreException;
+import com.util.DateHelper;
+import com.util.InputValidator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -68,6 +70,7 @@ public class BasicDBServiceImpl implements BasicDBService {
                 artists.add(artist);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to fetch Artists", e);
         }
         return artists;
@@ -90,6 +93,7 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null; // No artist with that ID
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -107,6 +111,7 @@ public class BasicDBServiceImpl implements BasicDBService {
                 albums.add(album);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to get albums for artist " + artistName + " :");
         }
         return albums;
@@ -129,6 +134,7 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null; // No album with that ID
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -145,56 +151,57 @@ public class BasicDBServiceImpl implements BasicDBService {
                 playlists.add(playlist);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to get playlists");
         }
         return playlists;
     }
 
-    private void getTracksPs(List<Track> tracks, PreparedStatement ps, long objectID) throws SQLException {
+    private List<Track> getTracksPs(PreparedStatement ps, long objectID) throws SQLException {
+        List<Track> tracks = new ArrayList<>();
         ps.setLong(1, objectID);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             TrackImpl track = new TrackImpl(this, rs.getLong("id"));
             track.setName(rs.getString("name"));
-            track.setAlbum(getAlbum(rs.getLong("album")));
-            track.setDurationSec(rs.getInt("duration"));
+            track.setAlbum(getAlbum(rs.getLong("album_id")));
+            track.setDurationSec(rs.getInt("duration_sec"));
             track.setPath(rs.getString("path"));
             track.setIsFavorite(rs.getBoolean("isfavorite"));
             tracks.add(track);
         }
+        System.out.println(tracks.size() + " e marimea sa moara ===============" + ps + " e querry-ul" + objectID);
+        return tracks;
     }
 
     @Override
     public List<Track> getPlaylistTracks(Playlist playlist) {
-        List<Track> tracks = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("")) {
-            getTracksPs(tracks, ps, playlist.getObjectID());
+        try (PreparedStatement ps = connection.prepareStatement("SELECT id, name, duration_sec, path, album_id, isfavorite FROM track t,playlist_track pt WHERE pt.playlist_id = ? AND pt.track_id = t.id ORDER BY pt.trackplaylistnumber ASC")) {
+            return getTracksPs(ps, playlist.getObjectID());
         } catch (SQLException e) {
-            throw new FetchException("Failed to get tracks for playlist " + playlist.getName());
+            e.printStackTrace();
+            throw new FetchException("Failed to get tracks for playlist - " + playlist.getName());
         }
-        return tracks;
     }
 
     @Override
     public List<Track> getAlbumTracks(Album album) {
-        List<Track> tracks = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track WHERE album_id = ?")) {
-            getTracksPs(tracks, ps, album.getObjectID());
+            return getTracksPs(ps, album.getObjectID());
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to get tracks for album " + album.getName());
         }
-        return tracks;
     }
 
     @Override
     public List<Track> getArtistTracks(Artist artist) {
-        List<Track> tracks = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track t, album al, artist ar where al.artist_id = ar.id and t.album_id = al.id and ar.id = ?")) {
-            getTracksPs(tracks, ps, artist.getObjectID());
+            return getTracksPs(ps, artist.getObjectID());
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to get tracks for artist " + artist.getName());
         }
-        return tracks;
     }
 
     @Override
@@ -213,9 +220,33 @@ public class BasicDBServiceImpl implements BasicDBService {
                 tracks.add(track);
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new FetchException("Failed to get favorite tracks");
         }
         return tracks;
+    }
+
+    @Override
+    public Playlist getPlaylist(String playlistName) {
+        if (playlistName.trim().isEmpty()) {
+            throw new AssertionError("Invalid playlist name provided: Name must not be empty.");
+        }
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM playlist WHERE name = ?")) {
+            ps.setString(1, playlistName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Playlist playlist = new PlaylistImpl(this, rs.getLong("id"));
+                playlist.setName(rs.getString("name"));
+                playlist.setCreationDate(rs.getDate("creation_date").toLocalDate());
+                return playlist;
+            }
+            else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new FetchException("Failed to fetch Artist", e);
+        }
     }
 
 
@@ -230,7 +261,8 @@ public class BasicDBServiceImpl implements BasicDBService {
         try {
             return ((AbstractPersistentJDBCObject) persistentObject).store(connection);
         } catch (SQLException e) {
-            throw new StoreException("Failed to store object", e);
+            e.printStackTrace();
+            throw new StoreException("Failed to store object" + e.getMessage(), e);
         }
     }
 
@@ -241,6 +273,7 @@ public class BasicDBServiceImpl implements BasicDBService {
                 connection.close();
             }
         } catch (SQLException e) {
+            e.printStackTrace();
             throw new ServiceException("Failed to close connection", e);
         }
     }

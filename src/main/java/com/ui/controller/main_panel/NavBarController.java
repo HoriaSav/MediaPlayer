@@ -41,25 +41,22 @@ public class NavBarController {
 
     @FXML
     public void skipTrack() {
-        if (accessController.getPlayerService().hasNextTrack()) {
-            accessController.getPlayerService().playNextTrack();
-        }
+        accessController.getMusicLibraryService().skip();
     }
 
     @FXML
     public void goBackTrack() {
-        if (accessController.getPlayerService().hasPreviousTrack()) {
-            accessController.getPlayerService().playPreviousTrack();
-        }
+        accessController.getMusicLibraryService().previous();
     }
 
     @FXML
     public void playPauseTrack() {
-        accessController.getPlayerService().playPauseTrack();
+        accessController.getMusicLibraryService().playPause();
     }
 
     @FXML
     public void muteUnmute() {
+        accessController.getMusicLibraryService().mute();
     }
 
     private TrackUiContainer setTrackUiContainer() {

@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.util.function.Consumer;
 
 public class FxmlFileOpener {
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     public FxmlFileOpener() {
     }
@@ -23,7 +25,20 @@ public class FxmlFileOpener {
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
 
-            Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
+            Parent root = fxmlLoader.load();
+            // Store mouse position
+            root.setOnMousePressed(event -> {
+                xOffset = event.getSceneX();
+                yOffset = event.getSceneY();
+            });
+
+            // Move stage
+            root.setOnMouseDragged(event -> {
+                stage.setX(event.getScreenX() - xOffset);
+                stage.setY(event.getScreenY() - yOffset);
+            });
+
+            Scene scene = new Scene(root, 1000, 700);
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

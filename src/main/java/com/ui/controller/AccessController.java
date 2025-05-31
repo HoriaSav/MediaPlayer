@@ -1,6 +1,8 @@
 package com.ui.controller;
 
-import com.service.PlayerService;
+import com.service.MusicLibraryService;
+import com.service.MusicLibraryServiceImpl;
+import com.service.PlayerServiceImpl;
 import com.ui.controller.container.TrackUiContainer;
 import javafx.scene.layout.StackPane;
 
@@ -8,7 +10,7 @@ import javafx.scene.layout.StackPane;
 public class AccessController {
     private static volatile AccessController instance;
     private static StackPane mainPanel;
-    private static PlayerService playerService;
+    private static MusicLibraryService musicLibraryService;
     private static TrackUiContainer trackUiContainer;
     private static PlaylistPanelController playlistPanelController;
 
@@ -37,12 +39,12 @@ public class AccessController {
         return mainPanel;
     }
 
-    public PlayerService getPlayerService() {
-        return playerService;
+    public MusicLibraryService getMusicLibraryService() {
+        return musicLibraryService;
     }
 
-    public void setTrackPlayerHelper() {
-        AccessController.playerService = new PlayerService();
+    public void setMusicLibraryService() {
+        AccessController.musicLibraryService = new MusicLibraryServiceImpl();
     }
 
     public TrackUiContainer getTrackUiContainer() {

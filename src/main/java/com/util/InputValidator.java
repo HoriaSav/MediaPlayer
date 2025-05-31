@@ -1,9 +1,10 @@
 package com.util;
 
-import com.model.Track;
+import com.repository.basicservice.interfaces.Track;
 import javafx.scene.media.MediaPlayer;
 
 import java.io.File;
+import java.util.Date;
 
 public class InputValidator {
     private InputValidator() {}
@@ -87,5 +88,29 @@ public class InputValidator {
         if (mediaPlayer == null) {
             throw new AssertionError("Media player not initialized");
         }
+    }
+
+    public static boolean isMusicFile(File file) {
+        if (file == null || !file.exists() || !file.isFile()) {
+            return false;
+        }
+
+        String name = file.getName().toLowerCase();
+        return name.endsWith(".mp3") || name.endsWith(".wav");
+    }
+
+    public static Date getNotNullConvertedDate(java.sql.Date date) {
+        if (date == null) {
+            return null;
+        }
+
+        return new java.util.Date(date.getTime());
+    }
+
+    public static java.sql.Date getNotNullConvertedDate(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return new java.sql.Date(date.getTime());
     }
 }

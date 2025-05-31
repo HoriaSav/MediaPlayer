@@ -1,10 +1,12 @@
 package com.repository.basicservice.impl;
 
 import com.repository.basicservice.AbstractPersistentJDBCObject;
+import com.repository.basicservice.BasicDBServiceImpl;
 import com.repository.basicservice.interfaces.Album;
 import com.repository.basicservice.interfaces.BasicDBService;
 import com.repository.basicservice.interfaces.Track;
 import com.repository.util.IDSequenceGenerator;
+import com.ui.controller.AccessController;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -115,6 +117,13 @@ public class TrackImpl extends AbstractPersistentJDBCObject implements Track {
 
     @Override
     public long store(Connection connection) throws SQLException {
+        try {
+            storeUnstoredObject((AbstractPersistentJDBCObject) this.getAlbum(), connection);
+        }
+        catch (SQLException e) {
+            System.out.println("ERROR: "+e.getMessage());
+        }
+
         if (!isPersistent()) {
             setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "track_id_seq"));
             insertTrack(connection);
@@ -123,5 +132,11 @@ public class TrackImpl extends AbstractPersistentJDBCObject implements Track {
         }
 
         return getObjectID();
+    }
+
+    private void storeUnstoredObject(AbstractPersistentJDBCObject object, Connection connection) throws SQLException {
+        if (!object.isPersistent()) {
+            new BasicDBServiceImpl(connection).store(object);
+        }
     }
 }

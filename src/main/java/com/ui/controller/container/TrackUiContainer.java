@@ -1,6 +1,6 @@
 package com.ui.controller.container;
 
-import com.model.Track;
+import com.repository.basicservice.interfaces.Track;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -167,8 +167,8 @@ public class TrackUiContainer {
     }
 
     /**
-     * Sets the play/pause button
-     * @param playPauseButton The button to control play/pause
+     * Sets the playTrack/pause button
+     * @param playPauseButton The button to control playTrack/pause
      */
     public void setPlayPauseButton(Button playPauseButton) {
         this.playPauseButton = playPauseButton;
@@ -245,7 +245,7 @@ public class TrackUiContainer {
     public void setTrackInfoInUI(Track track) {
         try {
             trackNameLabel.setText(track.getName());
-            artistLabel.setText(track.getArtist());
+            artistLabel.setText(track.getAlbum().getArtist().getName());
         } catch (Exception e) {
             trackNameLabel.setText(track.getName());
             artistLabel.setText("");

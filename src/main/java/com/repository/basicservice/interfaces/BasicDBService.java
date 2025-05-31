@@ -36,6 +36,8 @@ public interface BasicDBService {
 
    List<Track> getLikedTracks();
 
+   Playlist getPlaylist(String name);
+
     long store(PersistentObject var1);
 
     void close();

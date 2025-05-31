@@ -20,7 +20,7 @@ CREATE TABLE track (
                        duration_sec INT,
                        path VARCHAR(500),
                        album_id BIGINT NOT NULL,
-                       isFavorite BIT NOT NULL,
+                       isFavorite BOOLEAN NOT NULL,
                        FOREIGN KEY (album_id) REFERENCES album(id)
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE track (
 CREATE TABLE playlist (
                           id BIGINT PRIMARY KEY,
                           name VARCHAR(255) NOT NULL,
-                          creation_date BIGINT
+                          creation_date DATE
 );
 
 -- PlaylistTrack junction table

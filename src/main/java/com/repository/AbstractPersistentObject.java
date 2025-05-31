@@ -2,7 +2,7 @@ package com.repository;
 
 public abstract class AbstractPersistentObject implements PersistentObject {
     public static boolean isValidObjectID(long id) {
-        return id > 0L && id != 0L;
+        return id > 0L;
     }
 
     public boolean isPersistent() {

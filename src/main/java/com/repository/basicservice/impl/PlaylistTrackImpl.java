@@ -87,7 +87,7 @@ public class PlaylistTrackImpl extends AbstractPersistentJDBCObject implements P
     @Override
     public long store(Connection connection) throws SQLException {
         if (!isPersistent()) {
-            setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "ward_id_seq"));
+            setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "playlist_track_id_seq"));
             insertPlaylistTrack(connection);
         } else {
             updatePlaylistTrack(connection);
