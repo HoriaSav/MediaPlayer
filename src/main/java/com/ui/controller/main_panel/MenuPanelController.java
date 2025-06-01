@@ -1,5 +1,6 @@
 package com.ui.controller.main_panel;
 
+import com.repository.basicservice.interfaces.Playlist;
 import com.repository.basicservice.interfaces.Track;
 import com.ui.controller.AccessController;
 import com.ui.controller.PlaylistItemController;
@@ -23,6 +24,15 @@ public class MenuPanelController {
 
     public void initialize() {
         accessController = AccessController.getInstance();
+        javafx.application.Platform.runLater(this::loadPlaylists);
+
+    }
+
+    private void loadPlaylists() {
+        List<Playlist> playlistList = accessController.getMusicLibraryService().getPlaylists();
+        for (Playlist playlist : playlistList) {
+            loadPlaylistButton(playlist);
+        }
     }
 
     @FXML
@@ -54,17 +64,21 @@ public class MenuPanelController {
     public void addNewPlaylist() {
         try {
             accessController.getMusicLibraryService().addPlaylist();
-            Button button = new Button();
-            String folderName = accessController.getMusicLibraryService().getCurrentPlaylist().getName();
-            button.setText(folderName);
-            button.setMaxWidth(Double.MAX_VALUE);
-            button.setAlignment(CENTER_LEFT);
-            button.setOnAction(_ -> setCurrentPlaylist(button.getText()));
-            playlistVBox.getChildren().add(button);
+            loadPlaylistButton(accessController.getMusicLibraryService().getCurrentPlaylist());
             loadFolder();
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadPlaylistButton(Playlist playlist) {
+        Button button = new Button();
+        String folderName = playlist.getName();
+        button.setText(folderName);
+        button.setMaxWidth(Double.MAX_VALUE);
+        button.setAlignment(CENTER_LEFT);
+        button.setOnAction(_ -> setCurrentPlaylist(button.getText()));
+        playlistVBox.getChildren().add(button);
     }
 
     public void setCurrentPlaylist(String playlistName) {

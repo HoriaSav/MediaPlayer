@@ -39,7 +39,7 @@ public abstract class AbstractEntityTestCase extends AbstractServiceTestCase {
         }
 
         Assertions.assertTrue(artist.isPersistent(), "Calling 'isPersistent()' after storing returned false");
-        List<Artist> newArtists = service.getArtists ("");
+        List<Artist> newArtists = service.getArtists("");
         Assertions.assertNotNull(newArtists, "Expected a List, getArtists returned NULL");
         int newCount = newArtists.size();
         Assertions.assertEquals(prevCount + 1, newCount, "Number of Artists objects in db did not increase by one after inserting.");

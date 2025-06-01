@@ -6,8 +6,6 @@ import com.repository.basicservice.interfaces.*;
 import com.repository.exception.FetchException;
 import com.repository.exception.ServiceException;
 import com.repository.exception.StoreException;
-import com.util.DateHelper;
-import com.util.InputValidator;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -62,6 +60,7 @@ public class BasicDBServiceImpl implements BasicDBService {
             sql = "SELECT * FROM artist WHERE genre = ?";
         }
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, genre);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ArtistImpl artist = new ArtistImpl(this, rs.getLong("id"));
@@ -74,6 +73,55 @@ public class BasicDBServiceImpl implements BasicDBService {
             throw new FetchException("Failed to fetch Artists", e);
         }
         return artists;
+    }
+
+    @Override
+    public Artist getArtist(String name) {
+        String sql;
+        if (name.isEmpty()) {
+            sql = "SELECT * FROM artist";
+        } else {
+            sql = "SELECT * FROM artist WHERE name = ?";
+        }
+
+        try (PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, name);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                ArtistImpl artist = new ArtistImpl(this, rs.getLong("id"));
+                artist.setName(rs.getString("name"));
+                artist.setGenre(rs.getString("genre"));
+                return artist;
+            }
+            else {
+                return null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new FetchException("Failed to fetch Artists", e);
+        }
+    }
+
+    @Override
+    public Track getTrack(String name, String artistName) {
+        if (name.trim().isEmpty() || artistName.trim().isEmpty()) {
+            throw new AssertionError("Invalid track name or artist name provided: Name must not be empty.");
+        }
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track t, album a, artist ar WHERE t.name = ? AND t.album_id = a.id AND a.artist_id = ar.id AND ar.name = ?")) {
+            ps.setString(1, name);
+            ps.setString(2, artistName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                TrackImpl track = new TrackImpl(this, rs.getLong("id"));
+                track.setName(rs.getString("name"));
+                return track;
+            }
+            else {
+                return null;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -104,7 +152,7 @@ public class BasicDBServiceImpl implements BasicDBService {
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM album where name = ?")) {
             ps.setString(1, artistName);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 AlbumImpl album = new AlbumImpl(this, rs.getLong("id"));
                 album.setName(rs.getString("name"));
                 album.setArtist(getArtist(rs.getLong("artist_id")));
@@ -140,11 +188,34 @@ public class BasicDBServiceImpl implements BasicDBService {
     }
 
     @Override
+    public Album getAlbum(String name, Artist artist){
+        if (name.trim().isEmpty() || artist == null) {
+            throw new AssertionError("Invalid track name or artist name provided: Name must not be empty.");
+        }
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM album WHERE name = ? AND artist_id = ?")) {
+            ps.setString(1, name);
+            ps.setLong(2, artist.getObjectID());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                AlbumImpl album = new AlbumImpl(this, rs.getLong("id"));
+                album.setName(rs.getString("name"));
+                album.setArtist(getArtist(rs.getLong("artist_id")));
+                return album;
+            } else {
+                return null; // No album with that ID
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new FetchException("Failed to fetch Artist", e);
+        }
+    }
+
+    @Override
     public List<Playlist> getPlaylists() {
         List<Playlist> playlists = new ArrayList<>();
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM playlist")) {
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 PlaylistImpl playlist = new PlaylistImpl(this, rs.getLong("id"));
                 playlist.setName(rs.getString("name"));
                 playlist.setCreationDate(rs.getDate("creation_date").toLocalDate());
@@ -170,7 +241,6 @@ public class BasicDBServiceImpl implements BasicDBService {
             track.setIsFavorite(rs.getBoolean("isfavorite"));
             tracks.add(track);
         }
-        System.out.println(tracks.size() + " e marimea sa moara ===============" + ps + " e querry-ul" + objectID);
         return tracks;
     }
 
@@ -210,7 +280,7 @@ public class BasicDBServiceImpl implements BasicDBService {
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track where isfavorite = ?")) {
             ps.setBoolean(1, true);
             ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 TrackImpl track = new TrackImpl(this, rs.getLong("id"));
                 track.setName(rs.getString("name"));
                 track.setDurationSec(rs.getInt("duration_sec"));

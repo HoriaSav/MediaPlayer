@@ -3,7 +3,6 @@ package com.repository.basicservice.interfaces;
 import com.repository.PDBGVersion;
 import com.repository.PersistentObject;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @PDBGVersion
@@ -22,21 +21,27 @@ public interface BasicDBService {
 
     Artist getArtist(long id);
 
+    Artist getArtist(String name);
+
     List<Album> getAlbums(String artistName);
 
-    Album getAlbum (long id);
+    Album getAlbum(long id);
 
-   List<Playlist> getPlaylists();
+    Album getAlbum(String name, Artist artist);
 
-   List<Track> getPlaylistTracks(Playlist playlist);
+    List<Playlist> getPlaylists();
 
-   List<Track> getAlbumTracks(Album album);
+    Track getTrack(String name, String name1);
 
-   List<Track> getArtistTracks(Artist artist);
+    List<Track> getPlaylistTracks(Playlist playlist);
 
-   List<Track> getLikedTracks();
+    List<Track> getAlbumTracks(Album album);
 
-   Playlist getPlaylist(String name);
+    List<Track> getArtistTracks(Artist artist);
+
+    List<Track> getLikedTracks();
+
+    Playlist getPlaylist(String name);
 
     long store(PersistentObject var1);
 

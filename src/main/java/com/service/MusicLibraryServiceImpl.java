@@ -80,12 +80,17 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
             try {
                 InputValidator.validateFolder(selectedDirectory);
                 Folder folder = new Folder(selectedDirectory);
-                Playlist playlist = service.createPlaylist(folder.getFolderName());
-                service.store(playlist);
-                currentMedia.setCurrentPlaylist(service.getPlaylist(folder.getFolderName()));
-                addTracksFromLocalToDB(folder, playlist);
-                List<Track> trackList = service.getPlaylistTracks(currentMedia.getCurrentPlaylist());
-                currentMedia.setTrackList(trackList);
+                if(service.getPlaylist(folder.getFolderName()) == null) {
+                    Playlist playlist = service.createPlaylist(folder.getFolderName());
+                    service.store(playlist);
+                    currentMedia.setCurrentPlaylist(service.getPlaylist(folder.getFolderName()));
+                    addTracksFromLocalToDB(folder, playlist);
+                    List<Track> trackList = service.getPlaylistTracks(currentMedia.getCurrentPlaylist());
+                    currentMedia.setTrackList(trackList);
+                }
+                else {
+                    throw new FolderOperationException("Playlist already exists");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -105,7 +110,6 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
                 System.out.println(file.getName());
                 storeTrack(file, trackNumber++, playlist);
             }
-            System.out.println("Numarul la care am ajuns este " + trackNumber);
         }
     }
 
@@ -114,11 +118,19 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
             String name = FileInfoExtractor.getTrackTitle(file);
             int duration = FileInfoExtractor.getTrackDuration(file);
             String path = file.getPath();
-//        String album = FileInfoExtractor.getAlbumTitle(file);
-            Artist artist = service.createArtist("Unknown Artist", "ROCK");
-            Album album = new AlbumImpl(service, "Unknown Album", artist);
-            Track track = service.createTrack(name, duration, path, album);
-            service.store(track);
+            Artist artist = service.getArtist(FileInfoExtractor.getArtistName(file));
+            if (artist == null) {
+                artist = service.createArtist(FileInfoExtractor.getArtistName(file), "unknown");
+            }
+            Album album = service.getAlbum(FileInfoExtractor.getAlbumTitle(file), artist);
+            if (album == null) {
+                album = service.createAlbum(FileInfoExtractor.getAlbumTitle(file), artist);
+            }
+            Track track = service.getTrack(name, artist.getName());
+            if (track == null) {
+                track = service.createTrack(name, duration, path, album);
+                service.store(track);
+            }
             service.store(service.createPlaylistTrack(playlist, track, trackNumber));
         } catch (Exception e) {
             //TODO: implement logging

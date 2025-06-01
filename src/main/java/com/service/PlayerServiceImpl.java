@@ -19,7 +19,7 @@ import java.util.Objects;
 
 public class PlayerServiceImpl implements PlayerService {
     private MediaPlayer mediaPlayer;
-    private List<Track> playList;
+    private List<Track> playlist;
     private int currentTrackIndex = -1;
     private final AccessController accessController;
 
@@ -35,8 +35,8 @@ public class PlayerServiceImpl implements PlayerService {
      */
     @Override
     public void play(String trackName) {
-        if (playList.isEmpty()) {
-            playList = currentMedia.getTrackList();
+        if (playlist == null || playlist.isEmpty()) {
+            playlist = currentMedia.getTrackList();
         }
 
         if (trackName.isEmpty()) {
@@ -44,9 +44,9 @@ public class PlayerServiceImpl implements PlayerService {
             playTrackAtCurrentIndex();
         } else {
             boolean trackFound = false;
-            for (Track track : playList) {
+            for (Track track : playlist) {
                 if (track.getName().equals(trackName)) {
-                    currentTrackIndex = playList.indexOf(track);
+                    currentTrackIndex = playlist.indexOf(track);
                     playTrackAtCurrentIndex();
                     trackFound = true;
                     break;
@@ -79,8 +79,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     private void playTrackAtCurrentIndex() {
-        if (currentTrackIndex >= 0 && currentTrackIndex < playList.size()) {
-            currentMedia.setCurrentTrack(playList.get(currentTrackIndex));
+        if (currentTrackIndex >= 0 && currentTrackIndex < playlist.size()) {
+            currentMedia.setCurrentTrack(playlist.get(currentTrackIndex));
             String mediaPath = currentMedia.getCurrentTrack().getPath();
             setMediaPlayer(mediaPath);
 
@@ -95,26 +95,26 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     public void playNextTrack() {
-        if (playList != null && !playList.isEmpty() && hasNextTrack()) {
-            currentTrackIndex = (currentTrackIndex + 1) % playList.size();
+        if (playlist != null && !playlist.isEmpty() && hasNextTrack()) {
+            currentTrackIndex = (currentTrackIndex + 1) % playlist.size();
             playTrackAtCurrentIndex();
         }
     }
 
     private boolean hasNextTrack() {
-        return playList != null && currentTrackIndex < playList.size() - 1;
+        return playlist != null && currentTrackIndex < playlist.size() - 1;
     }
 
     @Override
     public void playPreviousTrack() {
-        if (playList != null && !playList.isEmpty() && hasPreviousTrack()) {
-            currentTrackIndex = (currentTrackIndex - 1 + playList.size()) % playList.size();
+        if (playlist != null && !playlist.isEmpty() && hasPreviousTrack()) {
+            currentTrackIndex = (currentTrackIndex - 1 + playlist.size()) % playlist.size();
             playTrackAtCurrentIndex();
         }
     }
 
     private boolean hasPreviousTrack() {
-        return playList != null && currentTrackIndex > 0;
+        return playlist != null && currentTrackIndex > 0;
     }
 
     @Override
@@ -210,8 +210,8 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     public String getCurrentTrackNumber() {
-        if (playList != null && !playList.isEmpty()) {
-            return String.format("%d/%d", currentTrackIndex + 1, playList.size());
+        if (playlist != null && !playlist.isEmpty()) {
+            return String.format("%d/%d", currentTrackIndex + 1, playlist.size());
         }
         return "0/0";
     }
