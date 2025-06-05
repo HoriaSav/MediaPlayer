@@ -4,7 +4,6 @@ import com.exception.FolderOperationException;
 import com.model.CurrentMedia;
 import com.model.Folder;
 import com.repository.basicservice.BasicDBServiceFactory;
-import com.repository.basicservice.impl.AlbumImpl;
 import com.repository.basicservice.interfaces.*;
 import com.util.FileInfoExtractor;
 import com.util.InputValidator;
