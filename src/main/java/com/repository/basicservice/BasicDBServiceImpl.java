@@ -190,7 +190,7 @@ public class BasicDBServiceImpl implements BasicDBService {
     @Override
     public Album getAlbum(String name, Artist artist){
         if (name.trim().isEmpty() || artist == null) {
-            throw new AssertionError("Invalid track name or artist name provided: Name must not be empty.");
+            throw new AssertionError("Invalid album name: " + name + " or artist name: " + artist + " provided: Name must not be empty.");
         }
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM album WHERE name = ? AND artist_id = ?")) {
             ps.setString(1, name);

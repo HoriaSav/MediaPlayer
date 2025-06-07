@@ -14,4 +14,6 @@ public interface Track extends PersistentObject {
     void setPath(String path);
     void setAlbum(Album album);
     void setIsFavorite(boolean isFavorite);
+    boolean equals(Object obj);
+    int hashCode();
 }

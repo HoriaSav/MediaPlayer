@@ -11,6 +11,7 @@ import com.ui.controller.AccessController;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class TrackImpl extends AbstractPersistentJDBCObject implements Track {
 
@@ -138,5 +139,23 @@ public class TrackImpl extends AbstractPersistentJDBCObject implements Track {
         if (!object.isPersistent()) {
             new BasicDBServiceImpl(connection).store(object);
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        TrackImpl other = (TrackImpl) obj;
+        return Objects.equals(this.getObjectID(), other.getObjectID()) &&
+                Objects.equals(name, other.name) &&
+                durationSec == other.durationSec &&
+                Objects.equals(path, other.path) &&
+                Objects.equals(album, other.album) &&
+                isFavorite == other.isFavorite;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getObjectID(), name, durationSec, path, album, isFavorite);
     }
 }

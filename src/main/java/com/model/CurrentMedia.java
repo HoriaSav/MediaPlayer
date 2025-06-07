@@ -3,6 +3,7 @@ package com.model;
 import com.repository.basicservice.interfaces.Playlist;
 import com.repository.basicservice.interfaces.Track;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CurrentMedia {
@@ -10,13 +11,17 @@ public class CurrentMedia {
     private Track currentTrack;
     private Playlist currentPlaylist;
 
-    public CurrentMedia(){}
+    public CurrentMedia(){
+        currentPlaylist = null;
+        currentTrack = null;
+        trackList = new ArrayList<>();
+    }
 
     public List<Track> getTrackList() {
         if (trackList == null) {
             throw new IllegalStateException("Track list is not initialized");
         }
-        return trackList;
+        return new ArrayList<>(trackList);
     }
 
     public Track getCurrentTrack() {
@@ -32,11 +37,15 @@ public class CurrentMedia {
     }
 
     public void setTrackList(List<Track> trackList) {
-        this.trackList = trackList;
-        if (trackList.isEmpty()) {
-            throw new IllegalStateException("Track list is empty");
+        if (trackList == null){
+            this.trackList = new ArrayList<>();
         }
-        currentTrack = trackList.getFirst();
+        else {
+            this.trackList = trackList;
+            if (!this.trackList.isEmpty()) {
+                currentTrack = trackList.getFirst();
+            }
+        }
     }
 
     public void setCurrentPlaylist(Playlist currentPlaylist) {

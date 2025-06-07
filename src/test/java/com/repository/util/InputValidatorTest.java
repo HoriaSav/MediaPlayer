@@ -2,7 +2,6 @@ package com.repository.util;
 
 import com.repository.basicservice.AbstractEntityTestCase;
 import com.repository.exception.ValidationException;
-import com.repository.util.InputValidator;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

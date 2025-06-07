@@ -1,5 +1,7 @@
 package com.util;
 
+import com.repository.basicservice.interfaces.Track;
+import javafx.scene.media.MediaPlayer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
@@ -15,7 +17,7 @@ class InputValidatorTest {
     @Test
     void validateTrack_ValidInput_NoException() {
         // Create a temporary file for testing
-        File tempFile = null;
+        File tempFile;
         try {
             tempFile = File.createTempFile("test", ".mp3");
             tempFile.deleteOnExit();
@@ -24,10 +26,6 @@ class InputValidatorTest {
             InputValidator.validateTrack("Test Track", "Test Artist", "Test Album", 180, tempFile.getAbsolutePath());
         } catch (IOException e) {
             fail("Failed to create temporary file");
-        } finally {
-            if (tempFile != null) {
-                tempFile.delete();
-            }
         }
     }
 
@@ -181,15 +179,15 @@ class InputValidatorTest {
 //        MediaPlayer mediaPlayer = new MediaPlayer(null); // Note: This is a mock situation
 //        assertDoesNotThrow(() -> InputValidator.validateMediaPlayerState(mediaPlayer, track));
 //    }
-//
-//    @Test
-//    void validateMediaPlayerState_NullTrack_ThrowsAssertionError() {
-//        MediaPlayer mediaPlayer = new MediaPlayer(null);
-//        AssertionError error = assertThrows(AssertionError.class,
-//            () -> InputValidator.validateMediaPlayerState(mediaPlayer, null));
-//        assertEquals("No track selected", error.getMessage());
-//    }
-//
+
+    @Test
+    void validateMediaPlayerState_NullTrack_ThrowsAssertionError() {
+        MediaPlayer mediaPlayer = new MediaPlayer(null);
+        AssertionError error = assertThrows(AssertionError.class,
+            () -> InputValidator.validateMediaPlayerState(mediaPlayer, null));
+        assertEquals("No track selected", error.getMessage());
+    }
+
 //    @Test
 //    void validateMediaPlayerState_NullMediaPlayer_ThrowsAssertionError() {
 //        Track track = new Track("Test", "Artist", "Album", 180, "path");
