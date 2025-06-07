@@ -9,6 +9,8 @@ module MediaPlayer {
     requires java.sql;
     requires com.zaxxer.hikari;
     requires org.postgresql.jdbc;
+    requires org.junit.jupiter.api;
+    requires org.junit.jupiter.params;
 
     opens com to javafx.graphics, javafx.fxml;
     opens com.ui.controller to javafx.fxml;
