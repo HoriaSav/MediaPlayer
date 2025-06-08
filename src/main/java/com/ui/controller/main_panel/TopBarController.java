@@ -4,9 +4,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class TopBarController {
+    public Button minimizeButton;
+    public Button toggleMaximizeButton;
+    public Button closeButton;
+
     public void initialize() {
     }
 
