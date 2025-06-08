@@ -9,71 +9,68 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" styleClass="grid-pane" stylesheets="@../css/playlist_item.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.PlaylistItemController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="6.0" />
-    <ColumnConstraints halignment="CENTER" hgrow="NEVER" percentWidth="9.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" percentWidth="20.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="19.0" prefWidth="100.0" />
-      <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="10.0" prefWidth="40.0" />
-      <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="10.0" prefWidth="50.0" />
-      <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="6.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-  </rowConstraints>
-   <children>
-      <Button fx:id="playTrackButton" mnemonicParsing="false" prefHeight="35.0">
-         <GridPane.margin>
-            <Insets left="5.0" />
-         </GridPane.margin>
-         <graphic>
+<GridPane alignment="CENTER" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="40.0" styleClass="grid-pane"
+          stylesheets="@../css/playlist_item.css" xmlns="http://javafx.com/javafx/23.0.1"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.ui.controller.PlaylistItemController">
+    <columnConstraints>
+        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="6.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" percentWidth="9.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="100.0" percentWidth="20.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="20.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" percentWidth="19.0" prefWidth="100.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="10.0" prefWidth="40.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="10.0" prefWidth="50.0"/>
+        <ColumnConstraints hgrow="NEVER" minWidth="-Infinity" percentWidth="6.0"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+    </rowConstraints>
+    <Button fx:id="playTrackButton" mnemonicParsing="false" prefHeight="35.0">
+        <GridPane.margin>
+          <Insets left="5.0"/>
+        </GridPane.margin>
+        <graphic>
             <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/play.png" />
-               </image>
+                <Image url="@../icons/play.png"/>
             </ImageView>
-         </graphic></Button>
-      <Button fx:id="likedTrackButton" mnemonicParsing="false" onAction="#likeTrack" GridPane.columnIndex="7">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-         <graphic>
+        </graphic>
+    </Button>
+    <Button fx:id="likedTrackButton" mnemonicParsing="false" onAction="#likeTrack" GridPane.columnIndex="7">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+        <graphic>
             <ImageView fitHeight="17.0" fitWidth="17.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../icons/heart_empty.png" />
-               </image>
+                <Image url="@../icons/heart_empty.png"/>
             </ImageView>
-         </graphic></Button>
-      <Label fx:id="trackNameLabel" text="_name_" GridPane.columnIndex="2">
-         <GridPane.margin>
-            <Insets left="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label fx:id="artistLabel" text="_artist_" GridPane.columnIndex="3">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label fx:id="albumLabel" text="_album_" GridPane.columnIndex="4">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label fx:id="trackNumberLabel" text="#nr" GridPane.columnIndex="5">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </Label>
-      <Label fx:id="durationLabel" text="000.00" GridPane.columnIndex="6">
-         <GridPane.margin>
-            <Insets left="5.0" right="5.0" />
-         </GridPane.margin>
-      </Label>
-      <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
-         <image>
-            <Image url="@../icons/trackImg.jpg" />
-         </image></ImageView>
-   </children>
+        </graphic>
+    </Button>
+    <Label fx:id="trackNameLabel" text="_name_" GridPane.columnIndex="2">
+        <GridPane.margin>
+          <Insets left="5.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label fx:id="artistLabel" text="_artist_" GridPane.columnIndex="3">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label fx:id="albumLabel" text="_album_" GridPane.columnIndex="4">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label fx:id="trackNumberLabel" text="#nr" GridPane.columnIndex="5">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </Label>
+    <Label fx:id="durationLabel" text="000.00" GridPane.columnIndex="6">
+        <GridPane.margin>
+          <Insets left="5.0" right="5.0"/>
+        </GridPane.margin>
+    </Label>
+    <ImageView fitHeight="35.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1">
+        <Image url="@../icons/trackImg.jpg"/>
+    </ImageView>
 </GridPane>
