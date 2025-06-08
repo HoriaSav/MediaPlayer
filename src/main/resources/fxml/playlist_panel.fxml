@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
@@ -20,7 +20,5 @@
          <Label fx:id="playlistTracksNumberLabel" styleClass="playlist_item_count" text="Tracks: 0" />
       </HBox>
    </VBox>
-   <ScrollPane fitToWidth="true" hbarPolicy="NEVER" styleClass="playlist_track_scroll_pane" vbarPolicy="ALWAYS">
-      <VBox fx:id="trackListVBox" maxWidth="1.7976931348623157E308" styleClass="playlist_track_vBox" />
-   </ScrollPane>
+   <ListView fx:id="trackListView" VBox.vgrow="ALWAYS" />
 </VBox>

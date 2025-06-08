@@ -14,7 +14,7 @@ public interface MusicLibraryService {
     void previous();
     void mute();
 
-    List<Track> getCurrentTrackList();
+    List<Track> getActiveTrackList();
     Track getActiveTrack();
     List<Playlist> getAllPlaylists();
     void addPlaylist();

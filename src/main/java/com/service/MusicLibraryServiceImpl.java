@@ -55,7 +55,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
     }
 
     @Override
-    public List<Track> getCurrentTrackList() {
+    public List<Track> getActiveTrackList() {
         return currentMedia.getTrackList();
     }
 

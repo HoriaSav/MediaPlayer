@@ -2,7 +2,6 @@ package com.ui.controller;
 
 import com.service.MusicLibraryService;
 import com.service.MusicLibraryServiceImpl;
-import com.service.PlayerServiceImpl;
 import com.ui.controller.container.TrackUiContainer;
 import javafx.scene.layout.StackPane;
 
@@ -59,7 +58,7 @@ public class AccessController {
         AccessController.playlistPanelController = playlistPanelController;
     }
 
-    public PlaylistPanelController getAlbumPanelController() {
+    public PlaylistPanelController getPlaylistPanelController() {
         return playlistPanelController;
     }
 }

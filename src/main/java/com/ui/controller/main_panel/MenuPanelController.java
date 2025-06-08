@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 
 import java.io.IOException;
 import java.util.List;
@@ -67,7 +69,7 @@ public class MenuPanelController {
             loadPlaylistButton(accessController.getMusicLibraryService().getActivePlaylist());
             loadFolder();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 
@@ -87,25 +89,56 @@ public class MenuPanelController {
         loadFolder();
     }
 
-    public void loadFolder() {
-        //TODO: modify the method to load tracks faster (creating a controller for each item is expensive)
-        try {
-            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getMusicLibraryService().getActivePlaylist().getName());
-            List<Track> trackList = accessController.getMusicLibraryService().getCurrentTrackList();
-            accessController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
-            accessController.getAlbumPanelController().trackListVBox.getChildren().clear();
-            for (Track track : trackList) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playlist_item.fxml"));
-                Node itemNode = loader.load();
-                PlaylistItemController playlistItemController = loader.getController();
-                playlistItemController.loadTrackItem(track.getName(), track.getAlbum().getArtist().getName(), track.getAlbum().getName(), 0, track.getDurationSec());
-                playlistItemController.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
-                accessController.getAlbumPanelController().trackListVBox.getChildren().add(itemNode);
+public void loadFolder() {
+    try {
+        accessController.getPlaylistPanelController().playlistNameLabel.setText(
+            accessController.getMusicLibraryService().getActivePlaylist().getName()
+        );
+        List<Track> trackList = accessController.getMusicLibraryService().getActiveTrackList();
+        accessController.getPlaylistPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
+        
+        ListView<Track> listView = accessController.getPlaylistPanelController().trackListView;
+        listView.getItems().clear();
+        listView.getItems().addAll(trackList);
+        listView.setCellFactory(_ -> new ListCell<>() {
+            private Node itemNode;
+            private PlaylistItemController controller;
+
+            @Override
+            protected void updateItem(Track track, boolean empty) {
+                super.updateItem(track, empty);
+                
+                if (empty || track == null) {
+                    setGraphic(null);
+                } else {
+                    // Create the FXML loader and load the item only when needed
+                    if (itemNode == null) {
+                        try {
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/playlist_item.fxml"));
+                            itemNode = loader.load();
+                            controller = loader.getController();
+                        } catch (IOException e) {
+                            System.out.println(e.getMessage());
+                            return;
+                        }
+                    }
+                    
+                    controller.loadTrackItem(
+                        track.getName(),
+                        track.getAlbum().getArtist().getName(),
+                        track.getAlbum().getName(),
+                        0,
+                        track.getDurationSec()
+                    );
+                    controller.getPlayTrackButton().setOnAction(_ -> selectTrack(track.getName()));
+                    setGraphic(itemNode);
+                }
             }
-        } catch (IOException e) {
-            //TODO exception handling
-        }
+        });
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
     }
+}
 
     public void selectTrack(String trackName) {
         accessController.getMusicLibraryService().playTrack(trackName);
