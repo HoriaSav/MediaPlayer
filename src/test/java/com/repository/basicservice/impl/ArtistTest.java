@@ -69,7 +69,7 @@ public class ArtistTest extends AbstractEntityTestCase {
         // Mock the static method to return a fake ID
         try (MockedStatic<IDSequenceGenerator> mockedStatic = mockStatic(IDSequenceGenerator.class)) {
             mockedStatic.when(() ->
-                    IDSequenceGenerator.generateNewObjectID(mockConnection, "artist_id_seq")
+                    IDSequenceGenerator.generatePostgresSequenceId(mockConnection, "artist_id_seq")
             ).thenReturn(42L);
 
             artist.setName("Radiohead");
@@ -131,7 +131,7 @@ public class ArtistTest extends AbstractEntityTestCase {
 
         try (MockedStatic<IDSequenceGenerator> mockedStatic = mockStatic(IDSequenceGenerator.class)) {
             mockedStatic.when(() ->
-                    IDSequenceGenerator.generateNewObjectID(mockConnection, "artist_id_seq")
+                    IDSequenceGenerator.generatePostgresSequenceId(mockConnection, "artist_id_seq")
             ).thenReturn(42L);
 
             artist.setName("Muse");

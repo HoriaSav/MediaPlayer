@@ -15,7 +15,7 @@ public final class DBCreator implements SchemaGenerator {
 
     /**
      * JDBC URL for connecting to the PostgreSQL database.
-     * Example: {@code "jdbc:postgresql://localhost:5432/mydb"}
+     * Example: {@code "jdbc:postgresql://localhost:5432/MediaPlayerDb"}
      */
     private static final String JDBC_URL = "jdbc:postgresql://localhost:5432/MediaPlayerDb";
 
@@ -27,7 +27,7 @@ public final class DBCreator implements SchemaGenerator {
 
 
     /**
-     * Main method used to initiate the database schema creation process.
+     * The main method used to initiate the database schema creation process.
      *
      * @param args command-line arguments (not used)
      */

@@ -75,7 +75,7 @@ public class PlaylistImpl extends AbstractPersistentJDBCObject implements Playli
     @Override
     public long store(Connection connection) throws SQLException {
         if (!isPersistent()) {
-            setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "playlist_id_seq"));
+            setObjectID(IDSequenceGenerator.generatePostgresSequenceId(connection, "playlist_id_seq"));
             insertPlaylist(connection);
         } else {
             updatePlaylist(connection);

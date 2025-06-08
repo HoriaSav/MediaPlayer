@@ -9,14 +9,6 @@ public class InputValidator {
         // Private constructor to prevent instantiation
     }
 
-    public static void validateTrack(String name, String artist, String album, int duration, String path) {
-        validateStringName(name);
-        validateStringName(artist);
-        validateStringName(album);
-        validateDuration(duration);
-        validatePath(path);
-    }
-
     public static void validateStringName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new ValidationException("Track name cannot be null or empty");

@@ -75,7 +75,7 @@ public class ArtistImpl extends AbstractPersistentJDBCObject implements Artist {
     @Override
     public long store(Connection connection) throws SQLException {
         if (!isPersistent()) {
-            setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "artist_id_seq"));
+            setObjectID(IDSequenceGenerator.generatePostgresSequenceId(connection, "artist_id_seq"));
             insertArtist(connection);
         } else {
             updateArtist(connection);

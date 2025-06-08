@@ -6,14 +6,14 @@ import com.repository.util.DataSourceFactory;
 import java.sql.Connection;
 
 /**
- * {@link BasicDBServiceFactory} define a static factory method in order to create an instance of a
+ * {@link BasicDBServiceFactory} define a static factory method to create an instance of a
  * {@link BasicDBService} object.
  *
  * @version 1.0
  */
 public class BasicDBServiceFactory {
     /**
-     * Factory method in order to create an instance of a {@link BasicDBService} object.
+     * Factory method to create an instance of a {@link BasicDBService} object.
      *
      * @return instance of a {@link BasicDBService} object
      */

@@ -15,7 +15,7 @@ public class SchemaParser {
     /**
      * Loads and parses SQL DDL statements from a resource file located on the classpath.
      *
-     * @param resourcePath path to the .sql file in the classpath (e.g. "de/hshn/mi/pdbg/util/schema.sql")
+     * @param resourcePath path to the .sql file in the classpath
      * @return list of complete SQL statements
      * @throws IOException if the file is not found or cannot be read
      */

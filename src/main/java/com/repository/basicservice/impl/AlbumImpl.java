@@ -1,7 +1,6 @@
 package com.repository.basicservice.impl;
 
 import com.repository.basicservice.AbstractPersistentJDBCObject;
-import com.repository.basicservice.BasicDBServiceImpl;
 import com.repository.basicservice.interfaces.Album;
 import com.repository.basicservice.interfaces.Artist;
 import com.repository.basicservice.interfaces.BasicDBService;
@@ -75,13 +74,13 @@ public class AlbumImpl extends AbstractPersistentJDBCObject implements Album {
     @Override
     public long store(Connection connection) throws SQLException {
         try {
-            storeUnstoredObject((AbstractPersistentJDBCObject) this.getArtist(), connection);
+            storeUnstoredObject((AbstractPersistentJDBCObject) this.getArtist());
         } catch (SQLException e) {
             System.out.println("ERROR: " + e.getMessage());
         }
 
         if (!isPersistent()) {
-            setObjectID(IDSequenceGenerator.generateNewObjectID(connection, "album_id_seq"));
+            setObjectID(IDSequenceGenerator.generatePostgresSequenceId(connection, "album_id_seq"));
             insertAlbum(connection);
         } else {
             updateAlbum(connection);
@@ -90,9 +89,9 @@ public class AlbumImpl extends AbstractPersistentJDBCObject implements Album {
         return getObjectID();
     }
 
-    private void storeUnstoredObject(AbstractPersistentJDBCObject object, Connection connection) throws SQLException {
+    private void storeUnstoredObject(AbstractPersistentJDBCObject object) throws SQLException {
         if (!object.isPersistent()) {
-            new BasicDBServiceImpl(connection).store(object);
+            getBasicDBService().store(object);
         }
     }
 }

@@ -29,7 +29,7 @@ public class IDSequenceGeneratorTest {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getLong(1)).thenReturn(expectedId);
 
-        long actualId = IDSequenceGenerator.generateNewObjectID(mockConnection, sequence);
+        long actualId = IDSequenceGenerator.generatePostgresSequenceId(mockConnection, sequence);
 
         assertEquals(expectedId, actualId);
         verify(mockPreparedStatement).close();
@@ -48,7 +48,7 @@ public class IDSequenceGeneratorTest {
         when(mockPreparedStatement.executeQuery()).thenReturn(mockResultSet);
         when(mockResultSet.next()).thenReturn(false);  // no result
 
-        long actualId = IDSequenceGenerator.generateNewObjectID(mockConnection, sequence);
+        long actualId = IDSequenceGenerator.generatePostgresSequenceId(mockConnection, sequence);
 
         assertEquals(INVALID_OBJECT_ID, actualId);
         verify(mockPreparedStatement).close();
@@ -62,6 +62,6 @@ public class IDSequenceGeneratorTest {
 
         when(mockConnection.prepareStatement(anyString())).thenThrow(new SQLException("DB error"));
 
-        assertThrows(SQLException.class, () -> IDSequenceGenerator.generateNewObjectID(mockConnection, sequence));
+        assertThrows(SQLException.class, () -> IDSequenceGenerator.generatePostgresSequenceId(mockConnection, sequence));
     }
 }
