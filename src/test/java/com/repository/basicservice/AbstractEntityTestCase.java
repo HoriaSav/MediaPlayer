@@ -10,7 +10,6 @@ public abstract class AbstractEntityTestCase extends AbstractServiceTestCase {
     protected final Artist createArtist() {
         String name = UUID.randomUUID().toString();
         String genre = UUID.randomUUID().toString();
-//        int numberOfBeds = (int)((Math.random() + (double)1.0F) * (double)100.0F);
         Artist artist = null;
 
         try {

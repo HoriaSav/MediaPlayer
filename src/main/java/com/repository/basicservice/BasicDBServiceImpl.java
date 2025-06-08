@@ -69,7 +69,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 artists.add(artist);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artists", e);
         }
         return artists;
@@ -97,7 +96,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artists", e);
         }
     }
@@ -151,7 +149,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null; // No artist with that ID
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -173,7 +170,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null; // No album with that ID
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -196,7 +192,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null; // No album with that ID
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -213,7 +208,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 playlists.add(playlist);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to get playlists");
         }
         return playlists;
@@ -237,10 +231,9 @@ public class BasicDBServiceImpl implements BasicDBService {
 
     @Override
     public List<Track> getPlaylistTracks(Playlist playlist) {
-        try (PreparedStatement ps = connection.prepareStatement("SELECT id, name, duration_sec, path, album_id, isfavorite FROM track t,playlist_track pt WHERE pt.playlist_id = ? AND pt.track_id = t.id ORDER BY pt.trackplaylistnumber ASC")) {
+        try (PreparedStatement ps = connection.prepareStatement("SELECT id, name, duration_sec, path, album_id, isfavorite FROM track t,playlist_track pt WHERE pt.playlist_id = ? AND pt.track_id = t.id ORDER BY pt.trackplaylistnumber ")) {
             return getTracksPs(ps, playlist.getObjectID());
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to get tracks for playlist - " + playlist.getName());
         }
     }
@@ -250,7 +243,6 @@ public class BasicDBServiceImpl implements BasicDBService {
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track WHERE album_id = ?")) {
             return getTracksPs(ps, album.getObjectID());
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to get tracks for album " + album.getName());
         }
     }
@@ -260,7 +252,6 @@ public class BasicDBServiceImpl implements BasicDBService {
         try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM track t, album al, artist ar where al.artist_id = ar.id and t.album_id = al.id and ar.id = ?")) {
             return getTracksPs(ps, artist.getObjectID());
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to get tracks for artist " + artist.getName());
         }
     }
@@ -281,7 +272,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 tracks.add(track);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to get favorite tracks");
         }
         return tracks;
@@ -305,7 +295,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 return null;
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
     }
@@ -322,7 +311,6 @@ public class BasicDBServiceImpl implements BasicDBService {
         try {
             return ((AbstractPersistentJDBCObject) persistentObject).store(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new StoreException("Failed to store object" + e.getMessage(), e);
         }
     }
@@ -334,7 +322,6 @@ public class BasicDBServiceImpl implements BasicDBService {
                 connection.close();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new ServiceException("Failed to close connection", e);
         }
     }
