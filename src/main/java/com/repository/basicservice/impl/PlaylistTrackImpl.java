@@ -39,11 +39,6 @@ public class PlaylistTrackImpl extends AbstractPersistentJDBCObject implements P
     }
 
     @Override
-    public int getTrackPlaylistNumber() {
-        return trackPlaylistNumber;
-    }
-
-    @Override
     public void setPlaylist(Playlist playlist) {
         this.playlist = playlist;
     }
@@ -52,12 +47,7 @@ public class PlaylistTrackImpl extends AbstractPersistentJDBCObject implements P
     public void setTrack(Track track) {
         this.track = track;
     }
-
-    @Override
-    public void setTrackPlaylistNumber(int trackPlaylistNumber) {
-        this.trackPlaylistNumber = trackPlaylistNumber;
-    }
-
+    
     private void insertPlaylistTrack (Connection connection) throws SQLException {
         String sql = "INSERT INTO playlist_track (playlist_id, track_id, trackplaylistnumber) VALUES (?, ?, ?)";
         try (PreparedStatement ps = connection.prepareStatement(sql)) {

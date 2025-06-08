@@ -55,17 +55,17 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
     }
 
     @Override
-    public List<Track> getTracks() {
+    public List<Track> getCurrentTrackList() {
         return currentMedia.getTrackList();
     }
 
     @Override
-    public Track getCurrentTrack() {
+    public Track getActiveTrack() {
         return currentMedia.getCurrentTrack();
     }
 
     @Override
-    public List<Playlist> getPlaylists() {
+    public List<Playlist> getAllPlaylists() {
         return service.getPlaylists();
     }
 
@@ -83,7 +83,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
                     Playlist playlist = service.createPlaylist(folder.getFolderName());
                     service.store(playlist);
                     currentMedia.setCurrentPlaylist(service.getPlaylist(folder.getFolderName()));
-                    addTracksFromLocalToDB(folder, playlist);
+                    addTracks(folder, playlist);
                     List<Track> trackList = service.getPlaylistTracks(currentMedia.getCurrentPlaylist());
                     currentMedia.setTrackList(trackList);
                 }
@@ -98,7 +98,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
         }
     }
 
-    private void addTracksFromLocalToDB(Folder folder, Playlist playlist) {
+    private void addTracks(Folder folder, Playlist playlist) {
         File[] files = folder.getFolderFile().listFiles();
         if (files == null) {
             throw new FolderOperationException("Unable to list files in folder: " + folder.getFolderFile().getPath());
@@ -137,12 +137,24 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
     }
 
     @Override
-    public Playlist getCurrentPlaylist() {
+    public Playlist getActivePlaylist() {
         return currentMedia.getCurrentPlaylist();
     }
 
     @Override
-    public void setCurrentPlaylist(String playlist) {
+    public List<Album> getAllAlbums() {
+        //TODO: to be implemented
+        return List.of();
+    }
+
+    @Override
+    public Artist getAlbumArtist(Album album) {
+        //TODO: to be implemented
+        return null;
+    }
+
+    @Override
+    public void setActivePlaylist(String playlist) {
         currentMedia.setCurrentPlaylist(service.getPlaylist(playlist));
         currentMedia.setTrackList(service.getPlaylistTracks(currentMedia.getCurrentPlaylist()));
     }

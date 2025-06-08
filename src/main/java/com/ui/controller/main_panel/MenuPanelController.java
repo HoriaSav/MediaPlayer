@@ -29,7 +29,7 @@ public class MenuPanelController {
     }
 
     private void loadPlaylists() {
-        List<Playlist> playlistList = accessController.getMusicLibraryService().getPlaylists();
+        List<Playlist> playlistList = accessController.getMusicLibraryService().getAllPlaylists();
         for (Playlist playlist : playlistList) {
             loadPlaylistButton(playlist);
         }
@@ -64,7 +64,7 @@ public class MenuPanelController {
     public void addNewPlaylist() {
         try {
             accessController.getMusicLibraryService().addPlaylist();
-            loadPlaylistButton(accessController.getMusicLibraryService().getCurrentPlaylist());
+            loadPlaylistButton(accessController.getMusicLibraryService().getActivePlaylist());
             loadFolder();
         } catch (Exception e) {
             e.printStackTrace();
@@ -83,14 +83,15 @@ public class MenuPanelController {
 
     public void setCurrentPlaylist(String playlistName) {
         FxmlFileOpener.loadFrame(accessController.getMainStackPane(), "playlist_panel.fxml");
-        accessController.getMusicLibraryService().setCurrentPlaylist(playlistName);
+        accessController.getMusicLibraryService().setActivePlaylist(playlistName);
         loadFolder();
     }
 
     public void loadFolder() {
+        //TODO: modify the method to load tracks faster (creating a controller for each item is expensive)
         try {
-            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getMusicLibraryService().getCurrentPlaylist().getName());
-            List<Track> trackList = accessController.getMusicLibraryService().getTracks();
+            accessController.getAlbumPanelController().playlistNameLabel.setText(accessController.getMusicLibraryService().getActivePlaylist().getName());
+            List<Track> trackList = accessController.getMusicLibraryService().getCurrentTrackList();
             accessController.getAlbumPanelController().playlistTracksNumberLabel.setText("Tracks: " + trackList.size());
             accessController.getAlbumPanelController().trackListVBox.getChildren().clear();
             for (Track track : trackList) {
