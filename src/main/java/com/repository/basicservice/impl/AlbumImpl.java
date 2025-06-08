@@ -22,7 +22,6 @@ public class AlbumImpl extends AbstractPersistentJDBCObject implements Album {
     public AlbumImpl(BasicDBService service, String name, Artist artist) {
         this(service, INVALID_OBJECT_ID);
         this.name = name;
-        //TODO: check if artist is valid
         this.artist = artist;
     }
 

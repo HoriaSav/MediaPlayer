@@ -61,7 +61,7 @@ public interface BasicDBService {
      *
      * @param playlist the playlist to which the track will be added; must be a non-null instance of Playlist
      * @param track the track to be added to the playlist; must be a non-null instance of Track
-     * @param trackPlaylistNumber the position of the track within the playlist, as a zero-based index; must be non-negative
+     * @param trackPlaylistNumber the position of the track within the playlist, as a zero-based index, must be non-negative
      * @return the created PlaylistTrack instance that represents the association of the track with the playlist
      * @throws IllegalArgumentException if the playlist or track is null, or if the trackPlaylistNumber is negative
      */
@@ -73,7 +73,7 @@ public interface BasicDBService {
      * @param genre the genre of the artists to retrieve; must be a non-null and valid string
      * @return a list of artists that match the specified genre; may return an empty list if no artists are found
      */
-    List<Artist> getArtists(String genre);
+    List<Artist> getArtistsByGenre(String genre);
 
     /**
      * Retrieves the artist with the specified ID.
@@ -89,16 +89,25 @@ public interface BasicDBService {
      * @param name the name of the artist to retrieve; must be a non-null and non-empty string
      * @return the Artist instance associated with the specified name, or null if no artist is found
      */
-    Artist getArtist(String name);
+    Artist getArtistByName(String name);
 
     /**
-     * Retrieves a list of albums associated with the specified artist name.
+     * Retrieves the artist associated with the specified album.
      *
-     * @param artistName the name of the artist whose albums are to be retrieved; must be a non-null, non-empty string
-     * @return a list of albums associated with the specified artist name; may return an empty list if no albums are found
-     * @throws IllegalArgumentException if the artistName is null or empty
+     * @param album the album for which the associated artist is to be retrieved;
+     *              must be a non-null instance of Album
+     * @return the Artist instance associated with the specified album,
+     *         or null if no artist is found or the album is invalid
+     * @throws IllegalArgumentException if the album is null
      */
-    List<Album> getAlbums(String artistName);
+    Artist getArtistByAlbum(Album album);
+
+    /**
+     * Retrieves a list of all albums available in the repository.
+     *
+     * @return a list of Album instances; the list may be empty if no albums exist but will never be null
+     */
+    List<Album> getAllAlbums();
 
     /**
      * Retrieves the album with the specified ID.
@@ -113,7 +122,7 @@ public interface BasicDBService {
      *
      * @param name the name of the album to retrieve; must be a non-null and non-empty string
      * @param artist the artist associated with the album; must be a non-null instance of Artist
-     * @return the Album instance that matches the specified name and artist, or null if no album is found
+     * @return the Album instance that matches the specified name and artist or null if no album is found
      * @throws IllegalArgumentException if the name is null, empty, or if the artist is null
      */
     Album getAlbum(String name, Artist artist);
@@ -121,7 +130,7 @@ public interface BasicDBService {
     /**
      * Retrieves a list of all playlists available in the repository.
      *
-     * @return a list of Playlist instances; the list may be empty if no playlists exist, but never null
+     * @return a list of Playlist instances; the list may be empty if no playlists exist but never null
      */
     List<Playlist> getPlaylists();
 
@@ -130,7 +139,7 @@ public interface BasicDBService {
      *
      * @param name the primary name of the track to retrieve; must be a non-null and non-empty string
      * @param name1 an additional name or identifier for the track; must be a non-null and non-empty string
-     * @return the Track instance that matches the specified names, or null if no track is found
+     * @return the Track instance that matches the specified names or null if no track is found
      * @throws IllegalArgumentException if name or name1 is null or empty
      */
     Track getTrack(String name, String name1);

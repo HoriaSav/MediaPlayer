@@ -22,6 +22,9 @@ public interface MusicLibraryService {
     Playlist getActivePlaylist();
     List<Album> getAllAlbums();
     Artist getAlbumArtist(Album album);
+    List<Track> getTracksByAlbum(Album album);
+    List<Track> getTracksByArtist(Artist artist);
+    List<Track> getLikedTracks();
 
 
     void close();

@@ -51,7 +51,7 @@ public class BasicDBServiceImpl implements BasicDBService {
     }
 
     @Override
-    public List<Artist> getArtists(String genre) {
+    public List<Artist> getArtistsByGenre(String genre) {
         List<Artist> artists = new ArrayList<>();
         String sql;
         if (genre.isEmpty()) {
@@ -76,7 +76,7 @@ public class BasicDBServiceImpl implements BasicDBService {
     }
 
     @Override
-    public Artist getArtist(String name) {
+    public Artist getArtistByName(String name) {
         String sql;
         if (name.isEmpty()) {
             sql = "SELECT * FROM artist";
@@ -100,6 +100,16 @@ public class BasicDBServiceImpl implements BasicDBService {
             e.printStackTrace();
             throw new FetchException("Failed to fetch Artists", e);
         }
+    }
+
+    @Override
+    public Artist getArtistByAlbum(Album album) {
+        return null;
+    }
+
+    @Override
+    public List<Album> getAllAlbums() {
+        return List.of();
     }
 
     @Override
@@ -144,25 +154,6 @@ public class BasicDBServiceImpl implements BasicDBService {
             e.printStackTrace();
             throw new FetchException("Failed to fetch Artist", e);
         }
-    }
-
-    @Override
-    public List<Album> getAlbums(String artistName) {
-        List<Album> albums = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM album where name = ?")) {
-            ps.setString(1, artistName);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                AlbumImpl album = new AlbumImpl(this, rs.getLong("id"));
-                album.setName(rs.getString("name"));
-                album.setArtist(getArtist(rs.getLong("artist_id")));
-                albums.add(album);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new FetchException("Failed to get albums for artist " + artistName + " :");
-        }
-        return albums;
     }
 
     @Override

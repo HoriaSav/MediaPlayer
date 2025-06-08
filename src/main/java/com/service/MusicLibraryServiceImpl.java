@@ -91,7 +91,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
                     throw new FolderOperationException("Playlist already exists");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         } else {
             throw new FolderOperationException("No directory selected");
@@ -117,7 +117,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
             String name = FileInfoExtractor.getTrackTitle(file);
             int duration = FileInfoExtractor.getTrackDuration(file);
             String path = file.getPath();
-            Artist artist = service.getArtist(FileInfoExtractor.getArtistName(file));
+            Artist artist = service.getArtistByName(FileInfoExtractor.getArtistName(file));
             if (artist == null) {
                 artist = service.createArtist(FileInfoExtractor.getArtistName(file), "unknown");
             }
@@ -132,7 +132,7 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
             }
             service.store(service.createPlaylistTrack(playlist, track, trackNumber));
         } catch (Exception e) {
-            //TODO: implement logging
+            System.out.println(e.getMessage());
         }
     }
 
@@ -143,14 +143,27 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
 
     @Override
     public List<Album> getAllAlbums() {
-        //TODO: to be implemented
-        return List.of();
+        return service.getAllAlbums();
     }
 
     @Override
     public Artist getAlbumArtist(Album album) {
-        //TODO: to be implemented
-        return null;
+        return service.getArtistByAlbum(album);
+    }
+
+    @Override
+    public List<Track> getTracksByAlbum(Album album) {
+        return service.getAlbumTracks(album);
+    }
+
+    @Override
+    public List<Track> getTracksByArtist(Artist artist) {
+        return service.getArtistTracks(artist);
+    }
+
+    @Override
+    public List<Track> getLikedTracks() {
+        return service.getLikedTracks();
     }
 
     @Override
@@ -158,6 +171,8 @@ public class MusicLibraryServiceImpl implements MusicLibraryService {
         currentMedia.setCurrentPlaylist(service.getPlaylist(playlist));
         currentMedia.setTrackList(service.getPlaylistTracks(currentMedia.getCurrentPlaylist()));
     }
+
+
 
     @Override
     public void close() {
